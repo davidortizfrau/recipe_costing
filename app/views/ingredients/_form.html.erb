@@ -1,0 +1,102 @@
+<%= form_for @ingredient do |f| %>
+  <% if @ingredient.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ingredient.errors.count, "error") %> prohibited this ingredient from being saved:</h2>
+
+      <ul>
+      <% @ingredient.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+  
+  <!-- ********** Price per Unit Input ********** -->
+  <div class="row">
+    <div class="form-group col-md-4">
+      <%= f.label :price, "Price per" %>
+      <%= f.text_field :price, class: "form-control" %>
+    </div>
+    
+
+    <div class="form-group col-md-8">
+      <%= f.label :unit %>
+      <select class="form-control" id="ingredient_unit" name="ingredient[unit]">
+        <%= Ingredient.units.each do |unit| %>
+          <% if @ingredient.unit == unit %>
+            <option selected="selected"><%= unit.humanize.downcase %></option>
+          <% else %>
+            <option><%= unit.humanize.downcase %></option>
+          <% end %>
+        <% end %>
+      </select>
+    </div>
+  </div>
+  <!-- ********** End Price Input ********** -->
+
+
+
+  <div class="form-group">
+    <%= f.label :yield, "Yield (Edible Portion)" %>
+    <%= f.text_field :yield, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :ounces_per_cup, "Ounces per Cup (weight)" %>
+    <%= f.text_field :ounces_per_cup, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :category %>
+    <select class="form-control" id="ingredient_category" name="ingredient[category]">
+      <%= Ingredient.categories.each do |c| %>
+        <% if @ingredient.category == c.humanize %>
+          <option selected="selected"><%= c.humanize %></option>
+        <% else %>
+          <option><%= c.humanize %></option>
+        <% end %>
+      <% end %>
+    </select>
+  </div>
+
+
+  <!-- <div class="form-group">
+    <%= f.label :purveyor %>
+    <select class="form-control" id="ingredient_purveyor" name="ingredient[purveyor]">
+      <%= %w(store_1 store_2 store_3).each do |p| %>
+        <% if @ingredient.purveyor == p %>
+          <option selected="selected"><%= p.titleize %></option>
+        <% else %>
+          <option><%= p.titleize %></option>
+        <% end %>
+      <% end %>
+    </select>
+  </div> -->
+
+  <!-- <div class="form-group">
+    <%= f.label :inventory %>
+    <%= f.text_field :inventory, class: "form-control" %>
+  </div> -->
+  
+  <!-- <div class="form-group">
+    <%= f.label :storage %>
+    <select class="form-control" id="ingredient_storage" name="ingredient[storage]">
+      <%= %w(walk-in freezer reach-in pantry).each do |s| %>
+        <% if @ingredient.purveyor == s %>
+          <option selected="selected"><%= s.humanize.downcase %></option>
+        <% else %>
+          <option><%= s.humanize.downcase %></option>
+        <% end %>
+      <% end %>
+    </select>
+  </div> -->
+ 
+  
+    <%= f.submit class: "btn btn-default" %>
+  
+<% end %>

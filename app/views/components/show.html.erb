@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Quantity:</b>
+  <%= @component.quantity %>
+</p>
+
+<p>
+  <b>Unit:</b>
+  <%= @component.unit %>
+</p>
+
+<p>
+  <b>Recipe:</b>
+  <%= @component.recipe %>
+</p>
+
+<p>
+  <b>Ingredient:</b>
+  <%= @component.ingredient %>
+</p>
+
+
+<%= link_to 'Edit', edit_component_path(@component) %> |
+<%= link_to 'Back', components_path %>

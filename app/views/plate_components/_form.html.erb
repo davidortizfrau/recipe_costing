@@ -1,0 +1,46 @@
+<%= form_for @plate_component do |f| %>
+  
+  <% if @plate_component.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@plate_component.errors.count, "error") %> prohibited this plate_component from being saved:</h2>
+
+      <ul>
+      <% @plate_component.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="form-group col-md-2">
+      <%= f.label :quantity %>
+      <%= f.text_field :quantity, class: "form-control" %>
+    </div>
+
+     <div class="form-group col-md-2">
+      <%= f.label :unit %>
+      <%= f.select :unit, Ingredient.units, { include_blank: true }, class: "form-control" %>
+    </div>
+
+    <div class="form-group col-md-4">
+      <%= f.label :recipe_id %>
+      
+      <%= f.select :recipe_id, Recipe.all.collect {|r| [ r.name, r.id ] }, { include_blank: true }, class: "form-control" %>
+    </div>
+
+    <% @plate ||= @plate_component.plate %>
+
+    <%= f.hidden_field :plate_id, value: @plate.id %>
+
+    <div class="form-group col-md-3">
+      <% if request.fullpath[/edit/]%>
+        <%= f.submit "Update", class: "btn btn-default" %>
+      <% else %>
+        <%= f.submit "Add to Plate", class: "btn btn-default" %>
+      <% end %>
+    </div>
+  </div>
+    
+
+<% end %>

@@ -1,0 +1,36 @@
+<div class="col-md-8">
+	<div class="panel panel-default" id="plate_component_form">
+			
+		<div class="panel-heading">
+      <h3 class="panel-title">Plate Components</h3>
+    </div>
+
+    <div class="panel-body">
+    	<table class="table">
+    	  <thead>
+          <tr>
+            <th>Amount</th>
+            <th>Component</th>
+            <th>Cost</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <% @plate.plate_components.each do |plate_component| %>
+          <tr>
+            <td><%= plate_component.quantity %> <%= plate_component.unit %></td>
+            <td><%= link_to plate_component.recipe.name, plate_component.recipe %></td>
+            <td><%= number_to_currency plate_component.cost %></td>
+            <td><%= link_to 'Edit', edit_plate_component_path(plate_component) %></td>
+            <td><%= link_to 'Destroy', plate_component, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+    	</table>	
+
+    	<%= render "plate_components/form" %>
+
+    	<%= link_to "Add Component", "#", { class: "btn btn-primary", id: "add_component" } %>
+
+    </div>
+	</div>
+</div>

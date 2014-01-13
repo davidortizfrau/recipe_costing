@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Quantity:</b>
+  <%= @plate_component.quantity %>
+</p>
+
+<p>
+  <b>Unit:</b>
+  <%= @plate_component.unit %>
+</p>
+
+<p>
+  <b>Plate:</b>
+  <%= @plate_component.plate %>
+</p>
+
+<p>
+  <b>Recipe:</b>
+  <%= @plate_component.recipe %>
+</p>
+
+
+<%= link_to 'Edit', edit_plate_component_path(@plate_component) %> |
+<%= link_to 'Back', plate_components_path %>

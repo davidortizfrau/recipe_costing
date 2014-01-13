@@ -1,0 +1,49 @@
+<div class="col-md-4">
+  
+  <!-- ********** Cost ********** -->
+  <div class="row">
+  	
+  	<div class="col-md-6">
+  		<p class="text-muted"><b><%= "Total cost".upcase %></b></p>
+	    <p class="jumbo_text"><%= number_to_currency @recipe.total_cost %></p>
+  	</div>
+  	
+  	<div class="col-md-6">
+  		<p class="text-muted"><b><%= "Portion Cost".upcase %></b></p>
+    	<p class="jumbo_text"><%= number_to_currency @recipe.serving_cost %></p>
+  	</div>
+
+  </div>
+
+  <!-- ********** Portion ********** -->
+  <div class="row">
+
+  	<div class="col-md-6">
+  		<p class="text-muted"><b><%= "Portions".upcase %></b></p>
+   	  <p class="jumbo_text"><%= @recipe.portions.to_i %></p>
+  	</div>
+  	
+  	<div class="col-md-6">
+  		<p class="text-muted"><b><%= "Portion size".upcase %></b></p>
+	    <p class="jumbo_text"><%= @recipe.portion_size.to_i %> <%= @recipe.portion_unit %></p>
+  	</div>
+    
+  </div>
+  
+  <!-- ********** Yield ********** -->
+  <div class="row">
+  	
+  	<div class="col-md-12">
+  		<p class="text-muted"><b><%= "Yield".upcase %></b></p>
+	    <p class="jumbo_text"><%= @recipe.yield.to_i %> <%= @recipe.yield_unit %></p>
+  	</div>
+
+  	<div class="col-md-6">
+  		<%= link_to "Edit", edit_recipe_path(@recipe), class: "btn btn-default" %>
+  	</div>
+
+  </div>
+  
+  
+
+</div>

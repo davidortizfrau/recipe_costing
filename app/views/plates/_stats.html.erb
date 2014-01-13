@@ -1,0 +1,11 @@
+<div class="col-md-4">
+	<p class="text-muted">
+		<b><%= "Price".upcase %></b>
+	</p>
+
+	<p class="jumbo_text"><%= number_to_currency @plate.sales_price %>
+	</p>
+
+	<%= link_to 'Edit', edit_plate_path(@plate), class: "btn btn-default" %> 
+
+</div>

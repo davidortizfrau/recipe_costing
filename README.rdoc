@@ -1,0 +1,3 @@
+== Welcome to the Recipe Cost App
+
+Recipe Cost App is a tool to be used by chefs and restaurant managers to cost out recipes and compute food costs.

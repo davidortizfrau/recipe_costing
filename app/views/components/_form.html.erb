@@ -1,0 +1,42 @@
+<%= form_for @component do |f| %>
+  
+  <% if @component.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@component.errors.count, "error") %> prohibited this component from being saved:</h2>
+
+      <ul>
+      <% @component.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="form-group col-md-2">
+      <%= f.label :quantity %>
+      <%= f.text_field :quantity, class: "form-control" %>
+    </div>
+
+    <div class="form-group col-md-2">
+      <%= f.label :unit %>
+      <%= f.select :unit, Ingredient.units, { include_blank: true }, class: "form-control" %>
+    </div>
+
+    <div class="form-group col-md-4">
+      <%= f.label :ingredient_id %>
+      <%= f.select :ingredient_id, Ingredient.all.collect {|i| [ i.name, i.id ] }, { include_blank: true }, class: "form-control" %>
+    </div>
+
+    <%= f.hidden_field :recipe_id, value: @recipe.id %>
+
+    <div class="form-group col-md-3">
+      <% if request.fullpath[/edit/]%>
+        <%= f.submit "Update", class: "btn btn-default" %>
+      <% else %>
+        <%= f.submit "Add to recipe", class: "btn btn-default" %>
+      <% end %>
+    </div>
+  </div>
+    
+<% end %>

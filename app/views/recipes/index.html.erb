@@ -1,0 +1,33 @@
+<h1 class="page-header">Recipe Costs <%= link_to 'New Recipe', new_recipe_path, class: "btn btn-default pull-right" %></h1>
+
+
+<table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Portions</th>
+        <th>Portion size</th>
+        <th>Category</th>
+        <th>Total Cost</th>
+        <th>Portion Cost</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+      
+
+<% @recipes.each do |recipe| %>
+  <tr>
+    <td><%= link_to recipe.name, recipe_path(recipe) %></td>
+    <td><%= recipe.portions %></td>
+    <td><%= recipe.portion_size %></td>
+    <td><%= recipe.category %></td>
+    <td><%= number_to_currency recipe.total_cost %></td>
+    <td><%= number_to_currency recipe.serving_cost %></td>
+    <td><%= link_to 'Show', recipe %></td>
+    <td><%= link_to 'Delete', recipe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+

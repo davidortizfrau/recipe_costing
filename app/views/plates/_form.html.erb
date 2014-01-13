@@ -1,0 +1,44 @@
+<%= form_for @plate do |f| %>
+  
+  <% if @plate.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@plate.errors.count, "error") %> prohibited this plate from being saved:</h2>
+
+      <ul>
+      <% @plate.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="col-md-4">
+    <div class="form-group">
+      <%= f.label :name %><br />
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :category %><br />
+      <select class="form-control" id="plate_category" name="plate[category]">
+        <%= Plate.categories.each do |c| %>
+          <% if @plate.category == c.humanize %>
+            <option selected="selected"><%= c.humanize %></option>
+          <% else %>
+            <option><%= c.humanize %></option>
+          <% end %>
+        <% end %>
+      </select>
+    </div>
+    <div class="form-group">
+      <%= f.label :sales_price %><br />
+      <%= f.text_field :sales_price, class: "form-control" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit class: "btn btn-default" %>
+    </div>
+  </div>
+
+    
+  
+<% end %>

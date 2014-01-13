@@ -1,0 +1,26 @@
+<h1 class="page-header">Listing plates <%= link_to 'New Plate', new_plate_path, class: "btn btn-default pull-right" %></h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Sales price</th>
+      <th>Food Cost %</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+    
+
+<% @plates.each do |plate| %>
+  <tr>
+    <td><%= link_to plate.name, plate_path(plate) %></td>
+
+    <td><%= number_to_currency plate.sales_price %></td>
+    <td><%= number_to_percentage plate.food_cost %></td>
+    <td><%= link_to 'Show', plate_path(plate) %></td>
+    <td><%= link_to 'Delete', plate, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
