@@ -4,20 +4,29 @@ class PlateComponent < ActiveRecord::Base
 
   belongs_to :plate
   belongs_to :recipe
+  
   attr_accessible :quantity, :unit, 
   								:plate_id, :recipe_id
 
   validates :plate_id, presence: true
 
   #Get cost
+
   def cost
-  	if self.unit == self.recipe.yield_unit
+  	if self.recipe.portions && self.recipe.portions != 0
+      cost_portions
+    elsif self.unit == self.recipe.yield_unit
   		cost_same_units
   	elsif weight_unit?(self.unit) && weight_unit?(self.recipe.yield_unit)
   		cost_weight_units
   	elsif volume_unit?(self.unit) && volume_unit?(self.recipe.yield_unit)
   		cost_volume_units
   	end
+  end
+
+  # Price with portions given
+  def cost_portions
+    self.recipe.total_cost / self.recipe.portions * self.quantity
   end
 
   # Price for same units

@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$("#new_component").hide();
+	$("#new_recipe_ingredient").hide();
 	$("#recipes_ingredient_form").on("click", "#add_ingredient", function(event){
 		
 		var text = $(this).text();
@@ -7,7 +7,7 @@ $(document).ready(function() {
 		// event.stopPropagation();
 		
 		$(this).text(text == "Add Ingredient" ? "Cancel" : "Add Ingredient");
-		$("#new_component").slideToggle();
+		$("#new_recipe_ingredient").slideToggle();
 
 		event.preventDefault();
 	})

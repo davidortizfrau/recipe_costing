@@ -11,19 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140113175525) do
-
-  create_table "components", :force => true do |t|
-    t.decimal  "quantity"
-    t.string   "unit"
-    t.integer  "recipe_id"
-    t.integer  "ingredient_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
-
-  add_index "components", ["ingredient_id"], :name => "index_components_on_ingredient_id"
-  add_index "components", ["recipe_id"], :name => "index_components_on_recipe_id"
+ActiveRecord::Schema.define(:version => 20140131211428) do
 
   create_table "ingredients", :force => true do |t|
     t.string   "name"
@@ -51,6 +39,18 @@ ActiveRecord::Schema.define(:version => 20140113175525) do
   add_index "plate_components", ["plate_id"], :name => "index_plate_components_on_plate_id"
   add_index "plate_components", ["recipe_id"], :name => "index_plate_components_on_recipe_id"
 
+  create_table "plate_ingredients", :force => true do |t|
+    t.decimal  "quantity"
+    t.string   "unit"
+    t.integer  "plate_id"
+    t.integer  "ingredient_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "plate_ingredients", ["ingredient_id"], :name => "index_plate_ingredients_on_ingredient_id"
+  add_index "plate_ingredients", ["plate_id"], :name => "index_plate_ingredients_on_plate_id"
+
   create_table "plates", :force => true do |t|
     t.string   "name"
     t.decimal  "sales_price"
@@ -58,6 +58,18 @@ ActiveRecord::Schema.define(:version => 20140113175525) do
     t.datetime "updated_at",  :null => false
     t.string   "category"
   end
+
+  create_table "recipe_ingredients", :force => true do |t|
+    t.decimal  "quantity"
+    t.string   "unit"
+    t.integer  "recipe_id"
+    t.integer  "ingredient_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "recipe_ingredients", ["ingredient_id"], :name => "index_components_on_ingredient_id"
+  add_index "recipe_ingredients", ["recipe_id"], :name => "index_components_on_recipe_id"
 
   create_table "recipes", :force => true do |t|
     t.string   "name"
@@ -71,5 +83,15 @@ ActiveRecord::Schema.define(:version => 20140113175525) do
     t.string   "yield_unit"
     t.string   "portion_unit"
   end
+
+  create_table "users", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "password_digest"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
 
 end

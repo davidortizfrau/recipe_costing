@@ -1,10 +1,13 @@
-˚class Ingredient < ActiveRecord::Base
-  attr_accessible :category, :inventory, :name, 
-  								:price, :purveyor, :storage, :unit, 
-  								:yield, :ounces_per_cup
+class Ingredient < ActiveRecord::Base
+  attr_accessible :category, :inventory, :name, :price, :purveyor, :storage, 
+                  :unit, :yield, :ounces_per_cup
 
   
+  
+
   default_scope order: :name							
+
+  
 
   # Class instance variables
 

@@ -1,41 +1,11 @@
 class PlateComponentsController < ApplicationController
 
-  def index
-    @plate_components = PlateComponent.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @plate_components }
-    end
-  end
-
-  def show
-    @plate_component = PlateComponent.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @plate_component }
-    end
-  end
-
-  # GET /plate_components/new
-  # GET /plate_components/new.json
-  def new
-    @plate_component = PlateComponent.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @plate_component }
-    end
-  end
-
-  # GET /plate_components/1/edit
   def edit
     @plate_component = PlateComponent.find(params[:id])
+    id = @plate_component.plate.id
+    @plate = Plate.find(id)
   end
 
-  # POST /plate_components
-  # POST /plate_components.json
   def create
     @plate_component = PlateComponent.new(params[:plate_component])
 
@@ -51,8 +21,6 @@ class PlateComponentsController < ApplicationController
     end
   end
 
-  # PUT /plate_components/1
-  # PUT /plate_components/1.json
   def update
     @plate_component = PlateComponent.find(params[:id])
 

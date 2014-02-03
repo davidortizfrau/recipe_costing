@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Cost</th>
       <th>Sales price</th>
       <th>Food Cost %</th>
       <th></th>
@@ -15,7 +16,7 @@
 <% @plates.each do |plate| %>
   <tr>
     <td><%= link_to plate.name, plate_path(plate) %></td>
-
+    <td><%= number_to_currency plate.total_cost %></td>
     <td><%= number_to_currency plate.sales_price %></td>
     <td><%= number_to_percentage plate.food_cost %></td>
     <td><%= link_to 'Show', plate_path(plate) %></td>

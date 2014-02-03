@@ -12,6 +12,7 @@ class PlatesController < ApplicationController
   def show
     @plate = Plate.find(params[:id])
     @plate_component = PlateComponent.new 
+    @plate_ingredient = PlateIngredient.new
 
     respond_to do |format|
       format.html # show.html.erb

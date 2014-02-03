@@ -5,7 +5,7 @@ class Recipe < ActiveRecord::Base
                   :portion_unit
 
   								
-  has_many :components, :dependent => :destroy
+  has_many :recipe_ingredients, :dependent => :destroy
 
   default_scope order: :name
 
@@ -21,7 +21,7 @@ class Recipe < ActiveRecord::Base
 
   def total_cost
   	t_cost = 0
-  	self.components.each do |c|
+  	self.recipe_ingredients.each do |c|
   		t_cost += c.price
   	end
   	t_cost

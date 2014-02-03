@@ -6,6 +6,20 @@
 	<p class="jumbo_text"><%= number_to_currency @plate.sales_price %>
 	</p>
 
+	<p class="text-muted">
+		<b><%= "Cost".upcase %></b>
+	</p>
+
+	<p class="jumbo_text"><%= number_to_currency @plate.total_cost %>
+	</p>
+
+	<p class="text-muted">
+		<b><%= "Food Cost".upcase %></b>
+	</p>
+
+	<p class="jumbo_text"><%= number_to_percentage @plate.food_cost %>
+	</p>
+
 	<%= link_to 'Edit', edit_plate_path(@plate), class: "btn btn-default" %> 
 
 </div>

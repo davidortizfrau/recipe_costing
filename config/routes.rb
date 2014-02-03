@@ -1,10 +1,14 @@
 RecipeCost::Application.routes.draw do
   
+  resources :users
+
+  resources :plate_ingredients
+
   resources :plate_components
 
   resources :plates
 
-  resources :components
+  resources :recipe_ingredients
 
   resources :recipes
 
@@ -12,6 +16,7 @@ RecipeCost::Application.routes.draw do
 
   root :to => 'recipes#index'
 
+  match '/signup', to: 'users#new'
   match 'inventory' => 'ingredients#index'
   match 'recipe_costs' => 'recipes#index'
   match 'plate_costs' => 'plates#index'

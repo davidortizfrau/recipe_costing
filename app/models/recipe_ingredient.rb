@@ -1,9 +1,10 @@
-class Component < ActiveRecord::Base
+class RecipeIngredient < ActiveRecord::Base
 
 	include ApplicationHelper
 
   belongs_to :recipe
   belongs_to :ingredient
+
   attr_accessible :quantity,  :unit, 
                   :recipe_id, :ingredient_id
 

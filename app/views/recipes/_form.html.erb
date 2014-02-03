@@ -29,7 +29,9 @@
       <div class="form-group col-md-4">
         <%= f.label :yield_unit %>
         <select class="form-control" id="recipe_yiled_unit" name="recipe[yield_unit]">
+          <option value></option>
           <%= Ingredient.units.each do |unit| %>
+
             <% if @recipe.yield_unit == unit %>
               <option selected="selected"><%= unit.humanize.downcase %></option>
             <% else %>
@@ -57,6 +59,7 @@
       <div class="form-group col-md-4">
         <%= f.label :portion_unit %>
         <select class="form-control" id="recipe_portion_unit" name="recipe[portion_unit]">
+          <option value></option>
           <%= Ingredient.units.each do |unit| %>
             <% if @recipe.portion_unit == unit %>
               <option selected="selected"><%= unit.humanize.downcase %></option>

@@ -3,7 +3,7 @@
 		<div class="panel-heading">
       <h3 class="panel-title">Ingredients</h3>
     </div>
-    <div class="panel-body" id="components_form">
+    <div class="panel-body" id="recipe_ingredients_form">
     	<table class="table">
         <thead>
           <tr>
@@ -14,18 +14,18 @@
             <th></th>
           </tr>
         </thead>
-        <% @recipe.components.each do |c| %>
+        <% @recipe.recipe_ingredients.each do |c| %>
           
           <tr>
             <td><%= c.quantity %> <%= c.unit %></td>
             <td><%= link_to c.ingredient.name, ingredient_path(c.ingredient) %></td>
             <td><%= number_to_currency c.price %></td>
-            <td><%= link_to "Edit", edit_component_path(c) %></td>
+            <td><%= link_to "Edit", edit_recipe_ingredient_path(c) %></td>
             <td><%= link_to "Delete", c, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
         <% end %>
       </table>
-      <%= render "components/form" %>
+      <%= render "recipe_ingredients/form" %>
 
       <%= link_to "Add Ingredient", "#", { class: "btn btn-primary", id: "add_ingredient" } %>
     </div>

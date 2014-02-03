@@ -1,0 +1,37 @@
+<div class="col-md-4"></div>
+<div class="col-md-8">
+	<div class="panel panel-success" id="plate_ingredients_form">
+			
+		<div class="panel-heading">
+      <h3 class="panel-title">Ingredients &amp; Extras</h3>
+    </div>
+
+    <div class="panel-body">
+    	<table class="table">
+    	  <thead>
+          <tr>
+            <th>Amount</th>
+            <th>Ingredient</th>
+            <th>Cost</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <% @plate.plate_ingredients.each do |ingredient| %>
+          <tr>
+            <td><%= ingredient.quantity %> <%= ingredient.unit %></td>
+            <td><%= link_to ingredient.ingredient.name, ingredient.ingredient %></td>
+            <td><%= number_to_currency ingredient.price %></td>
+            <td><%= link_to 'Edit', edit_plate_ingredient_path(ingredient) %></td>
+            <td><%= link_to 'Delete', ingredient, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+    	</table>	
+
+    	<%= render "plate_ingredients/form" %>
+
+    	<%= link_to "Add Ingredient", "#", { class: "btn btn-success", id: "add_ingredient" } %>
+
+    </div>
+	</div>
+</div>

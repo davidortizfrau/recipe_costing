@@ -20,7 +20,7 @@
   <tr>
     <td><%= link_to recipe.name, recipe_path(recipe) %></td>
     <td><%= recipe.portions %></td>
-    <td><%= recipe.portion_size %></td>
+    <td><%= recipe.portion_size %> <%= recipe.portion_unit %></td>
     <td><%= recipe.category %></td>
     <td><%= number_to_currency recipe.total_cost %></td>
     <td><%= number_to_currency recipe.serving_cost %></td>
