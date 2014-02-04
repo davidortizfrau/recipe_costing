@@ -1,12 +1,8 @@
 class PlatesController < ApplicationController
 
   def index
-    @plates = Plate.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @plates }
-    end
+    # @plates = Plate.all
+    @plates = current_user.plates
   end
 
   def show

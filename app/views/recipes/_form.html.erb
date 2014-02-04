@@ -1,53 +1,34 @@
 <%= form_for @recipe do |f| %>
 
-  <% if @recipe.errors.any? %>
-    
-    <div id="error_explanation">
-      <h2><%= pluralize(@recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
-
-      <ul>
-      <% @recipe.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <div class="col-md-4">
 
-     <div class="form-group">
+    <%= render "shared/error_messages", object: @recipe %>
+
+    <div class="form-group">
       <%= f.label :name %>
       <%= f.text_field :name, class: "form-control" %>
     </div>
 
-    <!-- ********** Yield Input ********** -->
-    <div class="row">
-      <div class="form-group col-md-4">
-        <%= f.label :yield %>
-        <%= f.text_field :yield, class: "form-control" %>
-      </div>
-      <div class="form-group col-md-4">
-        <%= f.label :yield_unit %>
-        <select class="form-control" id="recipe_yiled_unit" name="recipe[yield_unit]">
-          <option value></option>
-          <%= Ingredient.units.each do |unit| %>
-
-            <% if @recipe.yield_unit == unit %>
-              <option selected="selected"><%= unit.humanize.downcase %></option>
-            <% else %>
-              <option><%= unit.humanize.downcase %></option>
-            <% end %>
+    <div class="form-group">
+      <%= f.label :category %>
+      <select class="form-control" id="recipe_category" name="recipe[category]">
+        <%= Recipe.categories.each do |c| %>
+          <% if @recipe.category == c %>
+            <option selected="selected"><%= c.humanize.downcase %></option>
+          <% else %>
+            <option><%= c.humanize.downcase %></option>
           <% end %>
-        </select>
-      </div>
+        <% end %>
+      </select>
     </div>
-    <!-- ********** End Yield Input ********** -->
 
+
+    <hr>
     <!-- ********** Portion Input ********** -->
     <div class="row">
 
       <div class="form-group col-md-4">
-        <%= f.label :portions %>
+        <%= f.label :portions, "Portions" %>
         <%= f.text_field :portions, class: "form-control" %>
       </div>
 
@@ -70,23 +51,34 @@
         </select>
       </div>
     </div>
+    <!-- ********** End Portion Input ********** -->
+    <hr>
+    <!-- ********** Yield Input ********** -->
+    <div class="row">
+      <div class="form-group col-md-4">
+        <%= f.label :yield, "Total Yield" %>
+        <%= f.text_field :yield, class: "form-control" %>
+      </div>
+      <div class="form-group col-md-4">
+        <%= f.label :yield_unit %>
+        <select class="form-control" id="recipe_yiled_unit" name="recipe[yield_unit]">
+          <option value></option>
+          <%= Ingredient.units.each do |unit| %>
+
+            <% if @recipe.yield_unit == unit %>
+              <option selected="selected"><%= unit.humanize.downcase %></option>
+            <% else %>
+              <option><%= unit.humanize.downcase %></option>
+            <% end %>
+          <% end %>
+        </select>
+      </div>
+    </div>
     <!-- ********** End Yield Input ********** -->
 
-    <div class="form-group">
-      <%= f.label :category %>
-      <select class="form-control" id="recipe_category" name="recipe[category]">
-        <%= Recipe.categories.each do |c| %>
-          <% if @recipe.category == c %>
-            <option selected="selected"><%= c.humanize.downcase %></option>
-          <% else %>
-            <option><%= c.humanize.downcase %></option>
-          <% end %>
-        <% end %>
-      </select>
-    </div>
+    <%= f.hidden_field :user_id, value: current_user.id %>
 
-
-
+    <hr>
     <div class="actions">
       <%= f.submit class: "btn btn-default " %>
     </div>

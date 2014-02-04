@@ -1,33 +1,33 @@
 RecipeCost::Application.routes.draw do
   
+  root :to => 'pages#index'
+  
+  resources :sessions, only: [:new, :create, :destroy]
   resources :users
 
+  match '/signup', to: 'users#new'
+  match '/sign_in', to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy', via: :delete
+
   resources :plate_ingredients
-
   resources :plate_components
-
   resources :plates
-
   resources :recipe_ingredients
-
   resources :recipes
-
   resources :ingredients
 
-  root :to => 'recipes#index'
+  
 
   match '/signup', to: 'users#new'
-  match 'inventory' => 'ingredients#index'
-  match 'recipe_costs' => 'recipes#index'
-  match 'plate_costs' => 'plates#index'
-  match 'purchase_order' => 'pages#purchase_order'
+  match '/signin', to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy', via: :delete
 
   
-  get "pages/inventory"
+  # get "pages/inventory"
 
-  get "pages/recipe_costs"
+  # get "pages/recipe_costs"
 
-  get "pages/purchase_order"
+  # get "pages/purchase_order"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

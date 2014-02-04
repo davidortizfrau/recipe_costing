@@ -1,4 +1,8 @@
-<% navbar = %w(plate_costs recipe_costs ingredients) %>
+<% if signed_in? %>
+	<% navbar = %w(plates recipes ingredients) %>
+<% else %>
+	<% navbar = %w(sign_in) %>
+<% end %>
 
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 	<div class="container">
@@ -33,6 +37,9 @@
 						</script>
 					<% end %>
 				<% end %>
+			<% end %>
+			<% if signed_in? %>
+				<li><%= link_to "Sign out", signout_path, method: "delete" %></li>
 			<% end %>
     </ul>
   </div><!-- /.navbar-collapse -->

@@ -34,6 +34,8 @@
       <%= f.text_field :sales_price, class: "form-control" %>
     </div>
 
+    <%= f.hidden_field :user_id, value: current_user.id %>
+
     <div class="actions">
       <%= f.submit class: "btn btn-default" %>
     </div>

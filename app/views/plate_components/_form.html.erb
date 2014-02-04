@@ -26,7 +26,7 @@
     <div class="form-group col-md-4">
       <%= f.label :recipe_id %>
       
-      <%= f.select :recipe_id, Recipe.all.collect {|r| [ r.name, r.id ] }, { include_blank: true }, class: "form-control" %>
+      <%= f.select :recipe_id, current_user.recipes.all.collect {|r| [ r.name, r.id ] }, { include_blank: true }, class: "form-control" %>
     </div>
 
     <% @plate ||= @plate_component.plate %>

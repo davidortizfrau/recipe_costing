@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140131211428) do
+ActiveRecord::Schema.define(:version => 20140203204209) do
 
   create_table "ingredients", :force => true do |t|
     t.string   "name"
@@ -25,7 +25,10 @@ ActiveRecord::Schema.define(:version => 20140131211428) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.decimal  "ounces_per_cup"
+    t.integer  "user_id"
   end
+
+  add_index "ingredients", ["user_id"], :name => "index_ingredients_on_user_id"
 
   create_table "plate_components", :force => true do |t|
     t.string   "unit"
@@ -57,7 +60,10 @@ ActiveRecord::Schema.define(:version => 20140131211428) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.string   "category"
+    t.integer  "user_id"
   end
+
+  add_index "plates", ["user_id"], :name => "index_plates_on_user_id"
 
   create_table "recipe_ingredients", :force => true do |t|
     t.decimal  "quantity"
@@ -82,7 +88,10 @@ ActiveRecord::Schema.define(:version => 20140131211428) do
     t.decimal  "yield"
     t.string   "yield_unit"
     t.string   "portion_unit"
+    t.integer  "user_id"
   end
+
+  add_index "recipes", ["user_id"], :name => "index_recipes_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"
@@ -90,8 +99,10 @@ ActiveRecord::Schema.define(:version => 20140131211428) do
     t.string   "password_digest"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.string   "remember_token"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
 
 end

@@ -1,16 +1,6 @@
 <%= form_for @ingredient do |f| %>
   
-  <% if @ingredient.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@ingredient.errors.count, "error") %> prohibited this ingredient from being saved:</h2>
-
-      <ul>
-      <% @ingredient.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render "shared/error_messages", object: @ingredient %>
 
   <div class="row">
     <div class="form-group col-md-2">
@@ -25,7 +15,7 @@
 
     <div class="form-group col-md-4">
       <%= f.label :ingredient_id %>
-      <%= f.select :ingredient_id, Ingredient.all.collect {|i| [ i.name, i.id ] }, { include_blank: true }, class: "form-control" %>
+      <%= f.select :ingredient_id, @ingredients.all.collect {|i| [ i.name, i.id ] }, { include_blank: true }, class: "form-control" %>
     </div>
 
     <%= f.hidden_field :recipe_id, value: @recipe.id %>

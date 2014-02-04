@@ -2,8 +2,8 @@ class RecipeIngredientsController < ApplicationController
 
   def edit
     @ingredient = RecipeIngredient.find(params[:id])
-    id = @ingredient.recipe.id
-    @recipe = Recipe.find(id)
+    @recipe = @ingredient.recipe
+    @ingredients = current_user.ingredients
   end
 
   def create
@@ -13,7 +13,7 @@ class RecipeIngredientsController < ApplicationController
       flash[:success] = "Ingredient was successfully added."
       redirect_to request.referrer
     else
-      render action: "new"
+      redirect_to request.referrer
     end
   end
 

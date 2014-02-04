@@ -1,4 +1,4 @@
-<h1 class="page-header">Recipe Costs <%= link_to 'New Recipe', new_recipe_path, class: "btn btn-default pull-right" %></h1>
+<h1 class="page-header">Recipes <%= link_to 'New Recipe', new_recipe_path, class: "btn btn-default pull-right" %></h1>
 
 
 <table class="table">
@@ -19,8 +19,14 @@
 <% @recipes.each do |recipe| %>
   <tr>
     <td><%= link_to recipe.name, recipe_path(recipe) %></td>
-    <td><%= recipe.portions %></td>
-    <td><%= recipe.portion_size %> <%= recipe.portion_unit %></td>
+    <td><%= recipe.portions.to_i %></td>
+
+    <% if recipe.portion_size %>
+      <td><%= recipe.portion_size %> <%= recipe.portion_unit %></td>
+    <% else %>
+      <td>-</td>
+    <% end %>
+
     <td><%= recipe.category %></td>
     <td><%= number_to_currency recipe.total_cost %></td>
     <td><%= number_to_currency recipe.serving_cost %></td>

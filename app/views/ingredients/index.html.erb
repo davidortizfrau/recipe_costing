@@ -6,68 +6,66 @@
 <div class="row">
 
   <% @categories.each do |category| %>
-    <div class="col-md-6">
-      <div class="panel panel-primary">
-        <div class="panel-heading"><%= category.humanize %></div>
-        <div class="panel-body">
-          <div class="table-responsive">
-            <table class="table table-striped table-condensed">
-                <thead> 
-                  <tr>
-                    <th>Name</th>
-                    <th>Price/Unit</th>
-                    <!-- <th>Unit</th> -->
-                    <th>Yield</th>
-                    <th>Oz/Cup</th>
-                    <!-- <th>Category</th> -->
-                    <!-- <th>Purveyor</th> -->
-                    <!-- <th>Inventory</th> -->
-                    <!-- <th>Storage</th> -->
-                    <th></th>
-                    <th></th>
-                  </tr>
-                </thead>
-                  
-            
+    
+    <% if @ingredients.where(category: category.humanize).any? %>
+      <div class="col-md-6">
+        <div class="panel panel-primary">
+          <div class="panel-heading"><%= category.humanize %></div>
+          <div class="panel-body">
+            <div class="table-responsive">
+              <table class="table table-striped table-condensed">
+                  <thead> 
+                    <tr>
+                      <th>Name</th>
+                      <th>Price / Unit</th>
+                      <th>Yield</th>
+                      <th>Oz/Cup</th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                    
               
-              <% Ingredient.where(category: category.humanize).each do |ingredient| %>
                 
-                <tr>
-                  <td><%= ingredient.name %></td>
-                  <!-- <td><%= ingredient.inventory %></td> -->
+                <% @ingredients.where(category: category.humanize).each do |ingredient| %>
                   
-                  <!-- <td><%= ingredient.storage %></td> -->
-                  <td><%= number_to_currency(ingredient.price) %> / <%= ingredient.unit %></td>
+                  <tr>
+                    <td><%= ingredient.name %></td>
 
-                  <!-- <td></td> -->
-                  
-                  <td><%= number_to_percentage(ingredient.yield, options = { precision: 0}) %></td>
-                  
-                  <% if ingredient.ounces_per_cup %>
-                    <td><%= ingredient.ounces_per_cup %> oz</td>
-                  <% else %>
-                    <td></td>
-                  <% end %>
-                  
-                  <!-- <td><%= ingredient.category %></td> -->
-                  <!-- <td><%= ingredient.purveyor %></td> -->
-                  
-                  <td><%= link_to 'Edit', edit_ingredient_path(ingredient) %></td>
-                  <td><%= link_to 'Delete', ingredient, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                </tr>
-                
+                    <% if ingredient.price %>
+                      <td><%= number_to_currency(ingredient.price) %> / <%= ingredient.unit %></td>
+                    <% else %>
+                      <td>-</td>
+                    <% end %>
 
-              <% end %>
-            
+                    <% if ingredient.yield %>
+                      <td><%= number_to_percentage(ingredient.yield, options = { precision: 0}) %></td>
+                    <% else %>
+                      <td>-</td>
+                    <% end %>
+                      
+                    
+                    <% if ingredient.ounces_per_cup %>
+                      <td><%= ingredient.ounces_per_cup %> oz</td>
+                    <% else %>
+                      <td>-</td>
+                    <% end %>
+                    
+                    <td><%= link_to 'Edit', edit_ingredient_path(ingredient) %></td>
+                    <td><%= link_to 'Delete', ingredient, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                  </tr>
+                  
 
-            </table>
+                <% end %>
+              
+
+              </table>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-      
+    <% end %>           
   <% end %>
-
 </div>
 
 

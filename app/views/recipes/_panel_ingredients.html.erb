@@ -14,14 +14,14 @@
             <th></th>
           </tr>
         </thead>
-        <% @recipe.recipe_ingredients.each do |c| %>
+        <% @recipe.recipe_ingredients.each do |i| %>
           
           <tr>
-            <td><%= c.quantity %> <%= c.unit %></td>
-            <td><%= link_to c.ingredient.name, ingredient_path(c.ingredient) %></td>
-            <td><%= number_to_currency c.price %></td>
-            <td><%= link_to "Edit", edit_recipe_ingredient_path(c) %></td>
-            <td><%= link_to "Delete", c, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= i.quantity %> <%= i.unit %></td>
+            <td><%= link_to i.ingredient.name, ingredient_path(i.ingredient) %></td>
+            <td><%= number_to_currency i.cost if i.ingredient.price %></td>
+            <td><%= link_to "Edit", edit_recipe_ingredient_path(i) %></td>
+            <td><%= link_to "Delete", i, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
         <% end %>
       </table>

@@ -1,8 +1,9 @@
 class PagesController < ApplicationController
-  def inventory
+  
+  def index
   end
 
-  def recipe_costs
+  def inventory
   end
 
   def purchase_order

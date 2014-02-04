@@ -1,24 +1,25 @@
 <div class="col-md-4">
 	<p class="text-muted">
-		<b><%= "Price".upcase %></b>
+		<b><%= "Sales Price".upcase %></b>
 	</p>
 
-	<p class="jumbo_text"><%= number_to_currency @plate.sales_price %>
-	</p>
+	<% if @plate.sales_price %>
+		<p class="jumbo_text"><%= number_to_currency @plate.sales_price %></p>
+	<% else %>
+		<p class="jumbo_text">$0.00</p>
+	<% end %>
 
 	<p class="text-muted">
 		<b><%= "Cost".upcase %></b>
 	</p>
 
-	<p class="jumbo_text"><%= number_to_currency @plate.total_cost %>
-	</p>
+	<p class="jumbo_text"><%= number_to_currency @plate.total_cost %></p>
 
 	<p class="text-muted">
 		<b><%= "Food Cost".upcase %></b>
 	</p>
 
-	<p class="jumbo_text"><%= number_to_percentage @plate.food_cost %>
-	</p>
+	<p class="jumbo_text"><%= number_to_percentage @plate.food_cost %></p>
 
 	<%= link_to 'Edit', edit_plate_path(@plate), class: "btn btn-default" %> 
 

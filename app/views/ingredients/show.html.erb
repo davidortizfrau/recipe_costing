@@ -3,18 +3,36 @@
 <div class="row">
   <div class="col-md-4">
     <p class="text-muted"><b><%= "Price/Unit".upcase %></b></p>
-    <p class="jumbo_text"><%= number_to_currency @ingredient.price %> / <%= @ingredient.unit %></p>
+    <p class="jumbo_text">
+      <% if @ingredient.price %>
+        <%= number_to_currency @ingredient.price %> / <%= @ingredient.unit %>
+      <% else %>
+        -
+      <% end %>
+    </p>
+
 
     <p class="text-muted"><b><%= "Yield".upcase %></b></p>
-    <p class="jumbo_text"><%= @ingredient.yield %> %</p>
+    <p class="jumbo_text">
+      <% if @ingredient.yield %>
+        <%= @ingredient.yield %> %
+      <% else %>
+        -
+      <% end %>
+    </p>
 
     <p class="text-muted"><b><%= "Ounces per Cup".upcase %></b></p>
-    <p class="jumbo_text"><%= @ingredient.ounces_per_cup %> ounces</p>
+    <p class="jumbo_text">
+      <% if @ingredient.ounces_per_cup %>
+        <%= @ingredient.ounces_per_cup %> ounces
+      <% else %>
+        -
+      <% end %>
+    </p>
 
+  </div> 
 
-  </div>
-
-  <div class="col-md-4">
+  <!-- <div class="col-md-4">
 
     <p class="text-muted"><b><%= "Inventory".upcase %></b></p>
     <p class="jumbo_text"><%= @ingredient.inventory %> 10 #</p>
@@ -28,7 +46,7 @@
     <p class="text-muted"><b><%= "Storage".upcase %></b></p>
     <p class="jumbo_text"><%= @ingredient.storage %> Walk-in</p>
 
-  </div>
+  </div> -->
 </div>
     
 

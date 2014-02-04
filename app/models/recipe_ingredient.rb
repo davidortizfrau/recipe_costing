@@ -2,33 +2,41 @@ class RecipeIngredient < ActiveRecord::Base
 
 	include ApplicationHelper
 
-  belongs_to :recipe
-  belongs_to :ingredient
-
   attr_accessible :quantity,  :unit, 
                   :recipe_id, :ingredient_id
 
+  # Validations
   validates :recipe_id, presence: true
   validates :ingredient_id, presence: true
+  validates :quantity, presence: true
+  validates :unit, presence: true
 
+  # Relationships
+  belongs_to :recipe
+  belongs_to :ingredient
+
+  
   default_scope order: :created_at
 
   
   # Get price
-  def price
+  def cost
   	if self.ingredient.unit == self.unit
-  		price_same_units
+  		cost_same_units
   	elsif weight_unit?(self.ingredient.unit) && weight_unit?(self.unit)
-  		price_weight_units
+  		cost_weight_units
   	elsif volume_unit?(self.ingredient.unit) && volume_unit?(self.unit)
-  		price_volume_units
+  		cost_volume_units
   	else
-  		price_unit_mixture
+  		cost_unit_mixture
   	end
   end
 
-  def price_with_yield(quantity, price)
+  def cost_with_yield(quantity, price)
     
+    # Assigning 100% to yield if none specied by model
+    self.ingredient.yield ||= 100
+
     # Edible portion or product yield
     ep = (self.ingredient.yield / 100)
     
@@ -36,22 +44,22 @@ class RecipeIngredient < ActiveRecord::Base
     quantity / ep * price
   end
 
-  # Price for same units
-  def price_same_units
+  # Cost for same units
+  def cost_same_units
 
     quantity = self.quantity
 
     price = self.ingredient.price
 
     #Get price with yield
-    price_with_yield(quantity, price)
+    cost_with_yield(quantity, price)
 
   end
 
 
-  # Price for different weight unit
+  # Cost for different weight unit
   # Uses methods from ApplicationHelper
-  def price_weight_units
+  def cost_weight_units
   	#Convert component unit to ounces
   	quantity = convert_to_oz(self.quantity, self.unit)
 
@@ -59,13 +67,13 @@ class RecipeIngredient < ActiveRecord::Base
   	price = price_per_oz(self.ingredient.unit, self.ingredient.price)
 
   	#Get price with yield
-    price_with_yield(quantity, price)
+    cost_with_yield(quantity, price)
   end
 
 
 
-  # Price for different volume units
-  #Uses methods from ApplicationHelper
+  # Cost for different volume units
+  # Uses methods from ApplicationHelper
   def price_volume_units
   	#Convert component unit to fl oz
   	quantity = convert_to_fl_oz(self.quantity, self.unit)
@@ -74,11 +82,11 @@ class RecipeIngredient < ActiveRecord::Base
   	price = price_per_fl_oz(self.ingredient.unit, self.ingredient.price)
 
   	#Get price with yield
-    price_with_yield(quantity, price)
+    cost_with_yield(quantity, price)
   end
 
-  # Price for different volume units
-  #Uses methods from ApplicationHelper
+  # Cost for different volume units
+  # Uses methods from ApplicationHelper
   def price_unit_mixture
   	# Get price per oz on ingredient
   	quantity = price_per_oz(self.ingredient.unit, self.ingredient.price)
@@ -87,9 +95,7 @@ class RecipeIngredient < ActiveRecord::Base
   	price = volume_to_weight(self.quantity, self.unit, self.ingredient.ounces_per_cup)
 
   	#Get price with yield
-  	price_with_yield(quantity, price)
+  	cost_with_yield(quantity, price)
   end
-
-  
 
 end
