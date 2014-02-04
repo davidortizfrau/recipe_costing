@@ -2,6 +2,7 @@ class Ingredient < ActiveRecord::Base
   attr_accessible :category, :inventory, :name, :price, :purveyor, :storage, 
                   :unit, :yield, :ounces_per_cup, :user_id
 
+  # Validations
   validates :name, presence: true
   validates :user_id, presence: true
 
