@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.7'
+# gem 'rails', '4.0.2'
+
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -22,7 +24,8 @@ end
 
 gem 'jquery-rails'
 gem 'bcrypt-ruby', '3.0.1'
-# gem 'newrelic_rpm'
+
+gem "newrelic_rpm", "~> 3.7.1.188"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
