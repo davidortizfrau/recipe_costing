@@ -9,30 +9,26 @@ class PlateComponentsController < ApplicationController
   def create
     @plate_component = PlateComponent.new(params[:plate_component])
 
-    respond_to do |format|
-      if @plate_component.save
-        flash[:success] = "#{@plate_component.recipe.name} was added succesfully."
-        format.html { redirect_to @plate_component.plate }
-        format.json { render json: @plate_component, status: :created, location: @plate_component }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @plate_component.errors, status: :unprocessable_entity }
-      end
+    if @plate_component.save
+      flash[:success] = "#{@plate_component.recipe.name} was added succesfully."
+      redirect_to @plate_component.plate
+    else
+      redirect_to request.referer
     end
+
   end
 
   def update
     @plate_component = PlateComponent.find(params[:id])
 
-    respond_to do |format|
+
       if @plate_component.update_attributes(params[:plate_component])
-        format.html { redirect_to @plate_component.plate, notice: 'Plate component was successfully updated.' }
-        format.json { head :no_content }
+        flash[:success] = 'Plate component was successfully updated.'
+        redirect_to @plate_component.plate
       else
-        format.html { render action: "edit" }
-        format.json { render json: @plate_component.errors, status: :unprocessable_entity }
+        redirect_to request.referer
       end
-    end
+
   end
 
   # DELETE /plate_components/1
