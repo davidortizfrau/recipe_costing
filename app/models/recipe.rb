@@ -16,7 +16,7 @@ class Recipe < ActiveRecord::Base
   
 
   # Class instance variables
-  @categories = %w(baking pasta salad).sort
+  @categories = %w(sauce stocks baked_goods pasta salad).sort
   @units = %w(portion ea oz # fl_oz cup pint quart Tbsp tsp)
 
   class << self

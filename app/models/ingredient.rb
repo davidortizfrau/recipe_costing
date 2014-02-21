@@ -10,6 +10,7 @@ class Ingredient < ActiveRecord::Base
   # Relationships
   belongs_to :user
   has_many :recipe_ingredients, :dependent => :destroy
+  has_many :plate_ingredients, :dependent => :destroy
   
 
   default_scope order("name, category")							
@@ -17,7 +18,6 @@ class Ingredient < ActiveRecord::Base
   
 
   # Class instance variables
-
   @categories = %w(dairy herbs  pasta vegetables meats seafood poultry 
   								 fruits spices dry canned other).sort
 
@@ -26,9 +26,12 @@ class Ingredient < ActiveRecord::Base
   class << self
   	attr_accessor :categories, :units
   end
-
   # End of class instance variables
 
+private  
+  def q_yield
+    self.ingredient.yield ||= 100
 
-
+    self.quantity / (self.ingredient.yield / 100)
+  end
 end

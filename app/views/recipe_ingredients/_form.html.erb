@@ -3,6 +3,37 @@
   <%= render "shared/error_messages", object: @ingredient %>
 
   <div class="row">
+
+    <div class="form-group col-md-4">
+      <%= f.label :ingredient_id %>
+      <select class="form-control" id="recipe_ingredient_ingredient_id" name="recipe_ingredient[ingredient_id]">
+
+        <option></option>
+
+        <% Ingredient.categories.each do |c| %>
+          <% cat = c.humanize %>
+          <% if @ingredients.where(category: cat).any? %>
+
+          <optgroup label="<%= c %>">
+            <% @ingredients.where(category: cat).each do |i| %>
+              
+              <% if @ingredient.ingredient && @ingredient.ingredient.id == i.id %>
+                <option value=<%= "#{i.id}" %> data-unit=<%= "#{unit?(i.unit)}" %> class="option_a" selected><%= i.name %> <%= "(#{i.unit})" %></option>
+              <% else %>
+                <option value=<%= "#{i.id}" %> data-unit=<%= "#{unit?(i.unit)}" %> class="option_a"><%= i.name %> <%= "(#{i.unit})" %></option>
+              <% end %>
+            <% end %>
+          </optgroup>
+
+          <% end %>
+            
+
+        <% end %>
+
+      </select>
+    </div>
+
+    
     <div class="form-group col-md-2">
       <%= f.label :quantity %>
       <%= f.text_field :quantity, class: "form-control" %>
@@ -10,12 +41,17 @@
 
     <div class="form-group col-md-2">
       <%= f.label :unit %>
-      <%= f.select :unit, Ingredient.units, { include_blank: true }, class: "form-control" %>
-    </div>
 
-    <div class="form-group col-md-4">
-      <%= f.label :ingredient_id %>
-      <%= f.select :ingredient_id, @ingredients.all.collect {|i| [ i.name, i.id ] }, { include_blank: true }, class: "form-control" %>
+      <select class="form-control" id="recipe_ingredient_unit" name="recipe_ingredient[unit]">
+        <option></option>
+        <% Ingredient.units.each do |i| %>
+          <% if @ingredient.unit == i %>
+            <option selected class="option_unit" value=<%= "#{i}" %> data-unit=<%= "#{unit?(i)}" %>><%= i %></option>
+          <% else %>
+            <option class="option_unit" value=<%= "#{i}" %> data-unit=<%= "#{unit?(i)}" %>><%= i %></option>
+          <% end %>
+        <% end %>
+      </select>
     </div>
 
     <%= f.hidden_field :recipe_id, value: @recipe.id %>
@@ -30,3 +66,9 @@
   </div>
     
 <% end %>
+
+
+<%#= f.select :ingredient_id, @ingredients.all.collect {|i| [ "#{i.name} (#{i.unit})", i.id ] }, { include_blank: true }, class: "form-control" %>
+
+<%#= f.select :unit, Ingredient.units, { include_blank: true }, class: "form-control" %>
+

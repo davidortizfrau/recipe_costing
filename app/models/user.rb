@@ -16,9 +16,9 @@ class User < ActiveRecord::Base
 	validates :password_confirmation, presence: true
 
 	# Relationships
-	has_many :ingredients
-	has_many :recipes
-	has_many :plates
+	has_many :ingredients, :dependent => :destroy
+	has_many :recipes, :dependent => :destroy
+	has_many :plates, :dependent => :destroy
 
 private
 

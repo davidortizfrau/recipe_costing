@@ -20,8 +20,13 @@
         <% @plate.plate_ingredients.each do |ingredient| %>
           <tr>
             <td><%= ingredient.quantity %> <%= ingredient.unit %></td>
-            <td><%= link_to ingredient.ingredient.name, ingredient.ingredient %></td>
-            <td><%= number_to_currency ingredient.price %></td>
+
+            <td>
+                
+                <%= link_to ingredient.ingredient.name, ingredient.ingredient, class: "tip", data: {toggle: "tooltip", placement: "right", title: "#{number_to_currency ingredient.ingredient.price} / #{ingredient.ingredient.unit}"} %>
+            </td>
+
+            <td><%= number_to_currency ingredient.cost %></td>
             <td><%= link_to 'Edit', edit_plate_ingredient_path(ingredient) %></td>
             <td><%= link_to 'Delete', ingredient, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>

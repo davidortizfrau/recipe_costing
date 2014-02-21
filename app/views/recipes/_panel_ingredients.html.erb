@@ -18,7 +18,11 @@
           
           <tr>
             <td><%= i.quantity %> <%= i.unit %></td>
-            <td><%= link_to i.ingredient.name, ingredient_path(i.ingredient) %></td>
+            <td>
+
+              <%= link_to i.ingredient.name, edit_ingredient_path(i.ingredient), class: "tip", data: {toggle: "tooltip", placement: "right", title: "#{number_to_currency i.ingredient.price} / #{i.ingredient.unit}"} %>
+
+            </td>
             <td><%= number_to_currency i.cost if i.ingredient.price %></td>
             <td><%= link_to "Edit", edit_recipe_ingredient_path(i) %></td>
             <td><%= link_to "Delete", i, method: :delete, data: { confirm: 'Are you sure?' } %></td>

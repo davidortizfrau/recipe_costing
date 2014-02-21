@@ -1,88 +1,46 @@
 class PlateIngredient < ActiveRecord::Base
   
   include ApplicationHelper
+  include WeightUnitHelper
+  include VolumeUnitHelper
+  include CostingHelper
 
+  attr_accessible :quantity, :unit, 
+                  :plate_id, :ingredient_id
+
+  # Validations
+  validates :plate_id, presence: true
+  validates :ingredient_id, presence: true
+  validates :quantity, presence: true
+  validates :unit, presence: true
+
+  # Relationships
   belongs_to :plate
   belongs_to :ingredient
   
-  attr_accessible :quantity, :unit, :plate_id, :ingredient_id
+  default_scope order: :created_at
 
-  validates :plate_id, presence: true
-  validates :ingredient_id, presence: true
+  # Get cost
+  def cost
 
-  # Get price
-  def price
+    ing = self.ingredient
+
   	if self.ingredient.unit == self.unit
-  		price_same_units
+  		0#cost_same_units
   	elsif weight_unit?(self.ingredient.unit) && weight_unit?(self.unit)
-  		price_weight_units
+  		0#cost_weight_units
   	elsif volume_unit?(self.ingredient.unit) && volume_unit?(self.unit)
-  		price_volume_units
+  		0#cost_volume_units
   	else
-  		price_unit_mixture
+  		0# cost_unit_mixture
   	end
   end
 
-  def price_with_yield(quantity, price)
-    
-    # Edible portion or product yield
-    ep = (self.ingredient.yield / 100)
-    
-    #Get price
-    quantity / ep * price
+private
+  def q_yield
+    self.ingredient.yield ||= 100
+
+    self.quantity / (self.ingredient.yield / 100)
   end
 
-  # Price for same units
-  def price_same_units
-
-    quantity = self.quantity
-
-    price = self.ingredient.price
-
-    #Get price with yield
-    price_with_yield(quantity, price)
-
-  end
-
-
-  # Price for different weight unit
-  # Uses methods from ApplicationHelper
-  def price_weight_units
-  	#Convert component unit to ounces
-  	quantity = convert_to_oz(self.quantity, self.unit)
-
-  	#Convert price of ingredient to price/oz
-  	price = price_per_oz(self.ingredient.unit, self.ingredient.price)
-
-  	#Get price with yield
-    price_with_yield(quantity, price)
-  end
-
-
-
-  # Price for different volume units
-  #Uses methods from ApplicationHelper
-  def price_volume_units
-  	#Convert component unit to fl oz
-  	quantity = convert_to_fl_oz(self.quantity, self.unit)
-
-  	#Convert price of ingredient to price/fl_oz
-  	price = price_per_fl_oz(self.ingredient.unit, self.ingredient.price)
-
-  	#Get price with yield
-    price_with_yield(quantity, price)
-  end
-
-  # Price for different volume units
-  #Uses methods from ApplicationHelper
-  def price_unit_mixture
-  	# Get price per oz on ingredient
-  	quantity = price_per_oz(self.ingredient.unit, self.ingredient.price)
-
-  	#Convert volume unit to weight unit from Component
-  	price = volume_to_weight(self.quantity, self.unit, self.ingredient.ounces_per_cup)
-
-  	#Get price with yield
-  	price_with_yield(quantity, price)
-  end
 end

@@ -19,7 +19,12 @@
         <% @plate.plate_components.each do |plate_component| %>
           <tr>
             <td><%= plate_component.quantity %> <%= plate_component.unit %></td>
-            <td><%= link_to plate_component.recipe.name, plate_component.recipe %></td>
+            <td>
+
+                <%= link_to plate_component.recipe.name, plate_component.recipe, class: "tip", data: {toggle: "tooltip", placement: "right", title: "#{number_to_currency plate_component.recipe.total_cost} / #{plate_component.recipe.serving_cost}"} %>
+
+
+            </td>
             <td><%= number_to_currency plate_component.cost %></td>
             <td><%= link_to 'Edit', edit_plate_component_path(plate_component) %></td>
             <td><%= link_to 'Delete', plate_component, method: :delete, data: { confirm: 'Are you sure?' } %></td>

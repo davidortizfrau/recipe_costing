@@ -8,8 +8,8 @@ class Plate < ActiveRecord::Base
 
   # Relationships
   belongs_to :user
-  has_many :plate_components
-  has_many :plate_ingredients
+  has_many :plate_components, :dependent => :destroy
+  has_many :plate_ingredients, :dependent => :destroy
 
   # Class instance variables
 
@@ -28,7 +28,7 @@ class Plate < ActiveRecord::Base
       cost += c.cost
     end
     self.plate_ingredients.each do |c|
-      cost += c.price
+      cost += c.cost
     end
 
     cost

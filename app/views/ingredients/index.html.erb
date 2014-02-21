@@ -20,8 +20,6 @@
                       <th>Price / Unit</th>
                       <th>Yield</th>
                       <th>Oz/Cup</th>
-                      <th></th>
-                      <th></th>
                     </tr>
                   </thead>
                     
@@ -30,7 +28,7 @@
                 <% @ingredients.where(category: category.humanize).each do |ingredient| %>
                   
                   <tr>
-                    <td><%= ingredient.name %></td>
+                    <td><%= link_to ingredient.name, edit_ingredient_path(ingredient) %></td>
 
                     <% if ingredient.price %>
                       <td><%= number_to_currency(ingredient.price) %> / <%= ingredient.unit %></td>
@@ -50,9 +48,7 @@
                     <% else %>
                       <td>-</td>
                     <% end %>
-                    
-                    <td><%= link_to 'Edit', edit_ingredient_path(ingredient) %></td>
-                    <td><%= link_to 'Delete', ingredient, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+       
                   </tr>
                   
 
