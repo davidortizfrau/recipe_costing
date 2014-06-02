@@ -1,32 +1,54 @@
 <%= form_for @plate_ingredient do |f| %>
  
-  <% if @plate_ingredient.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@plate_ingredient.errors.count, "error") %> prohibited this plate_ingredient from being saved:</h2>
-
-      <ul>
-      <% @plate_ingredient.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render "shared/error_messages", object: @plate_ingredient %>
 
   <div class="row">
+
+    <div class="form-group col-md-4">
+      <%= f.label :ingredient_id %><br />
+      <%#= f.select :ingredient_id, current_user.ingredients.all.collect {|i| [ i.name, i.id ] }, { include_blank: true }, class: "form-control" %>
+      <select class="form-control" id="plate_ingredient_ingredient_id" name="plate_ingredient[ingredient_id]">
+
+        <option></option>
+
+        <% current_user.ingredient_categories.each do |c| %>
+          <% if c.ingredients.any? %>
+            <optgroup label="<%= c.name %>">
+            <% c.ingredients.each do |i| %>
+              <% if @plate_ingredient.ingredient && @plate_ingredient.ingredient.id == i.id %>
+                <option value=<%= "#{i.id}" %> data-unit=<%= "#{unit?(i.unit)}" %> data-ozcup=<%= "#{i.ounces_per_cup ? true : false }" %> class="option_a" selected><%= i.name %> <%= "(#{i.unit})" %></option>
+              <% else %>
+                <option value=<%= "#{i.id}" %> data-unit=<%= "#{unit?(i.unit)}" %> data-ozcup=<%= "#{i.ounces_per_cup ? true : false }" %> class="option_a"><%= i.name %> <%= "(#{i.unit})" %></option>
+              <% end %>
+            <% end %>
+          </optgroup>
+          <% end %>
+        <% end %>
+      </select>
+    </div>
+
     <div class="form-group col-md-2">
       <%= f.label :quantity %><br />
       <%= f.text_field :quantity, class: "form-control" %>
     </div>
+
     <div class="form-group col-md-2">
       <%= f.label :unit %><br />
-      <%= f.select :unit, Ingredient.units, { include_blank: true }, class: "form-control" %>
+      <%#= f.select :unit, Ingredient.units, { include_blank: true }, class: "form-control" %>
+      <select class="form-control" id="plate_ingredient_unit" name="plate_ingredient[unit]">
+        <option></option>
+        <% Ingredient.units.each do |i| %>
+          <% if @plate_ingredient.unit == i %>
+            <option selected class="option_unit" value=<%= "#{i}" %> data-unit=<%= "#{unit?(i)}" %>><%= i %></option>
+          <% else %>
+            <option class="option_unit" value=<%= "#{i}" %> data-unit=<%= "#{unit?(i)}" %>><%= i %></option>
+          <% end %>
+        <% end %>
+      </select>
     </div>
     <% @plate ||= @plate_ingredient.plate %>
     <%= f.hidden_field :plate_id, value: @plate.id %>
-    <div class="form-group col-md-4">
-      <%= f.label :ingredient_id %><br />
-      <%= f.select :ingredient_id, current_user.ingredients.all.collect {|i| [ i.name, i.id ] }, { include_blank: true }, class: "form-control" %>
-    </div>
+
 
     <div class="form-group col-md-3">
       <% if request.fullpath[/edit/]%>

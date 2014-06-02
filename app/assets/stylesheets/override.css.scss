@@ -1,6 +1,9 @@
 body {
   padding-top: 70px;
   padding-bottom: 100px;
+  // font-family: 'Special Elite', cursive;
+  // font-family: 'Cookie', cursive;
+  // font-size: 14px;
 }
 
 div.navbar-header {
@@ -13,16 +16,23 @@ div.navbar-header {
 			opacity: .8;
 		}
 	}
+	.navbar-brand {
+		font-family: 'Cookie', cursive;
+		font-size: 1.8em;
+	}
 }
 
 h1.page-header {
 	font-weight: 400;
+	font-size: 3em;
+	  font-family: 'Special Elite', cursive;
+
 }
 
 .jumbo_text {
-	font-size: 3em;
+	font-size: 2.8em;
 	font-weight: 300;
-	margin-top: -20px;
+	margin-top: -12px;
 }
 
 footer {

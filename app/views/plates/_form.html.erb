@@ -14,20 +14,14 @@
 
   <div class="col-md-4">
     <div class="form-group">
-      <%= f.label :name %><br />
+      <%= f.label :name %>
       <%= f.text_field :name, class: "form-control" %>
     </div>
     <div class="form-group">
-      <%= f.label :category %><br />
-      <select class="form-control" id="plate_category" name="plate[category]">
-        <%= Plate.categories.each do |c| %>
-          <% if @plate.category == c.humanize %>
-            <option selected="selected"><%= c.humanize %></option>
-          <% else %>
-            <option><%= c.humanize %></option>
-          <% end %>
-        <% end %>
-      </select>
+      <%= f.label :plate_category_id %>
+      <%= link_to "(Edit Categories)", plate_categories_path %>
+
+      <%= f.select :plate_category_id, current_user.plate_categories.map{ |c| [c.name, c.id] }, {}, class: "form-control"  %>
     </div>
     <div class="form-group">
       <%= f.label :sales_price %><br />

@@ -1,32 +1,41 @@
 <%= form_for @plate_component do |f| %>
   
-  <% if @plate_component.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@plate_component.errors.count, "error") %> prohibited this plate_component from being saved:</h2>
-
-      <ul>
-      <% @plate_component.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render "shared/error_messages", object: @plate_component %>
 
   <div class="row">
+    <div class="form-group col-md-4">
+      <%= f.label :recipe_id %>
+
+      <select class="form-control" id="plate_component_recipe_id" name="plate_component[recipe_id]">
+        <option></option>
+          <% @recipes.each do |p| %>
+            <% if @plate_component.recipe && @plate_component.recipe.id == p.id %>
+              <option value=<%= "#{p.id}" %> data-unit=<%= "#{unit?(p.yield_unit)}" %> class="option_a" selected><%= p.name %> <%= "(#{p.yield_unit})" %></option>
+            <% else %>
+              <option value=<%= "#{p.id}" %> data-unit=<%= "#{unit?(p.yield_unit)}" %> class="option_a"><%= p.name %> <%= "(#{p.yield_unit})" %></option>
+            <% end %>
+          <% end %>
+      </select>
+    </div>
+
     <div class="form-group col-md-2">
       <%= f.label :quantity %>
       <%= f.text_field :quantity, class: "form-control" %>
     </div>
 
-     <div class="form-group col-md-2">
+    <div class="form-group col-md-2">
       <%= f.label :unit %>
-      <%= f.select :unit, Plate.units, { include_blank: true }, class: "form-control" %>
-    </div>
 
-    <div class="form-group col-md-4">
-      <%= f.label :recipe_id %>
-      
-      <%= f.select :recipe_id, current_user.recipes.all.collect {|r| [ r.name, r.id ] }, { include_blank: true }, class: "form-control" %>
+      <select class="form-control" id="plate_component_unit" name="plate_component[unit]">
+        <option></option>
+        <% Recipe.units.each do |i| %>
+          <% if @plate_component.unit == i %>
+            <option selected class="option_unit" value=<%= "#{i}" %> data-unit=<%= "#{unit?(i)}" %>><%= i %></option>
+          <% else %>
+            <option class="option_unit" value=<%= "#{i}" %> data-unit=<%= "#{unit?(i)}" %>><%= i %></option>
+          <% end %>
+        <% end %>
+      </select>
     </div>
 
     <% @plate ||= @plate_component.plate %>

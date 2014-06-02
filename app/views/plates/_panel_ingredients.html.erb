@@ -17,13 +17,13 @@
             <th></th>
           </tr>
         </thead>
-        <% @plate.plate_ingredients.each do |ingredient| %>
+        <% @plate.ingredients.each do |ingredient| %>
           <tr>
             <td><%= ingredient.quantity %> <%= ingredient.unit %></td>
 
             <td>
                 
-                <%= link_to ingredient.ingredient.name, ingredient.ingredient, class: "tip", data: {toggle: "tooltip", placement: "right", title: "#{number_to_currency ingredient.ingredient.price} / #{ingredient.ingredient.unit}"} %>
+                <%= link_to ingredient.ingredient.name, edit_ingredient_path(ingredient.ingredient), class: "tip", data: {toggle: "tooltip", placement: "right", title: "#{number_to_currency ingredient.ingredient.price} / #{ingredient.ingredient.unit}"} %>
             </td>
 
             <td><%= number_to_currency ingredient.cost %></td>

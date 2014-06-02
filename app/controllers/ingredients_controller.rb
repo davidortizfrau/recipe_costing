@@ -1,12 +1,10 @@
 class IngredientsController < ApplicationController
+  before_filter :correct_user, only: [:edit, :update, :destroy]
 
   def index
+    redirect_to new_ingredient_path unless current_user.ingredients.any?
     @ingredients = current_user.ingredients
-    @categories = Ingredient.categories
-  end
-
-  def show
-    @ingredient = Ingredient.find(params[:id])
+    @categories = current_user.ingredient_categories
   end
 
   def new
@@ -14,16 +12,15 @@ class IngredientsController < ApplicationController
   end
 
   def edit
-    @ingredient = Ingredient.find(params[:id])
   end
 
   def create
-    @ingredient = Ingredient.new(params[:ingredient])
+    @ingredient = current_user.ingredients.build(params[:ingredient])
 
     @ingredient.name = params[:ingredient][:name].titleize
 
     if @ingredient.save
-      flash[:success] = @ingredient.name + " was successfully created."
+      flash[:success] = @ingredient.name + " was successfully added to ingredients."
       redirect_to ingredients_path
     else
       render action: "new"
@@ -32,8 +29,6 @@ class IngredientsController < ApplicationController
   end
 
   def update
-    @ingredient = Ingredient.find(params[:id])
-
     if @ingredient.update_attributes(params[:ingredient])
       flash[:success] = @ingredient.name + " has been successfully updated!"
       redirect_to ingredients_path
@@ -43,7 +38,14 @@ class IngredientsController < ApplicationController
   end
 
   def destroy
-    @ingredient = Ingredient.find(params[:id]).destroy
+    @ingredient.destroy
     redirect_to ingredients_url
+  end
+
+private
+
+  def correct_user
+    @ingredient = Ingredient.find(params[:id])
+    redirect_to root_path unless current_user?(@ingredient.user)
   end
 end

@@ -1,0 +1,56 @@
+<%= form_for(@recipe_component) do |f| %>
+  
+  <%= render "shared/error_messages", object: @recipe_component %>
+
+  <div class="row">
+
+    <div class="form-group col-md-4">
+      <%= f.label :component_id %>
+
+      <select class="form-control" id="recipe_component_component_id" name="recipe_component[component_id]">
+        <option></option>
+          <% @recipes.each do |r| %>
+            <% if @recipe_component.component && @recipe_component.component.id == r.id %>
+              <option value=<%= "#{r.id}" %> data-unit=<%= "#{unit?(r.yield_unit)}" %> class="option_a" selected><%= r.name %> <%= "(#{r.yield_unit})" %></option>
+            <% else %>
+              <option value=<%= "#{r.id}" %> data-unit=<%= "#{unit?(r.yield_unit)}" %> class="option_a"><%= r.name %> <%= "(#{r.yield_unit})" %></option>
+            <% end %>
+          <% end %>
+      </select>
+    </div>
+
+    <div class="form-group col-md-2">
+      <%= f.label :quantity %>
+      <%= f.text_field :quantity, class: "form-control" %>
+    </div>
+
+    <div class="form-group col-md-2">
+      <%= f.label :unit %>
+      <%#= f.select :unit, Recipe.units, { include_blank: true }, class: "form-control" %>
+
+      <select class="form-control" id="recipe_component_unit" name="recipe_component[unit]">
+        <option></option>
+        <% Recipe.units.each do |i| %>
+          <% if @recipe_component.unit == i %>
+            <option selected class="option_unit" value=<%= "#{i}" %> data-unit=<%= "#{unit?(i)}" %>><%= i %></option>
+          <% else %>
+            <option class="option_unit" value=<%= "#{i}" %> data-unit=<%= "#{unit?(i)}" %>><%= i %></option>
+          <% end %>
+        <% end %>
+      </select>
+    </div>
+
+    <div class="field">
+      <% @recipe ||= @recipe_component.recipe %>
+      <%= f.hidden_field :recipe_id, value: @recipe.id %>
+    </div>
+
+    <div class="form-group col-md-3">
+      <% if request.fullpath[/edit/]%>
+        <%= f.submit "Update", class: "btn btn-default" %>
+      <% else %>
+        <%= f.submit "Add to Recipe", class: "btn btn-default" %>
+      <% end %>
+    </div>
+  </div>  
+<% end %>

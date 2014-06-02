@@ -1,0 +1,37 @@
+<div class="panel panel-primary" id="recipe_component_form">
+  <div class="panel-heading">
+    <h3 class="panel-title">Components</h3>
+  </div>
+
+  <div class="panel-body">
+  	<table class="table">
+  	  <thead>
+        <tr>
+          <th>Amount</th>
+          <th>Component</th>
+          <th>Cost</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <% @recipe.components.each do |rc| %>
+        <% c = rc.component %>
+        <tr>
+          <td><%= rc.quantity %> <%= rc.unit %></td>
+          <td>
+
+            <%= link_to c.name, c, class: "tip", data: {toggle: "tooltip", placement: "right", title: "#{number_to_currency(c.total_cost / c.yield)} / #{c.yield_unit}"} %>
+
+          </td>
+          <td><%= number_to_currency rc.cost(rc.component) %></td>
+          <td><%= link_to 'Edit', edit_recipe_component_path(rc) %></td>
+          <td><%= link_to 'Delete', rc, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+  	</table>	
+
+  	<%= render "recipe_components/form" %>
+
+  	<%= link_to "Add Component", "#", { class: "btn btn-primary", id: "add_component" } %>
+  </div>
+</div>

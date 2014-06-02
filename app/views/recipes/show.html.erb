@@ -1,6 +1,11 @@
-<h1 class="page-header"><%= @recipe.name %> <small><%= @recipe.category %></small></h1>
+<h1 class="page-header"><%= @recipe.name %> <small><%= @recipe.recipe_category.name %></small></h1>
 
 <div class="row">
-  <%= render "stats" %>
-  <%= render "panel_ingredients" %>
+	<div class="col-md-4">
+  	<%= render "stats" %>
+	</div>
+	<div class="col-md-8">
+	  <%= render "panel_ingredients" %>
+	  <%= render "panel_components" %>
+	</div>
 </div>

@@ -1,7 +1,7 @@
 class PlatesController < ApplicationController
 
   def index
-    # @plates = Plate.all
+    redirect_to new_plate_path unless current_user.plates.any?
     @plates = current_user.plates
   end
 
@@ -9,31 +9,17 @@ class PlatesController < ApplicationController
     @plate = Plate.find(params[:id])
     @plate_component = PlateComponent.new 
     @plate_ingredient = PlateIngredient.new
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @plate }
-    end
+    @recipes = current_user.recipes
   end
 
-  # GET /plates/new
-  # GET /plates/new.json
   def new
     @plate = Plate.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @plate }
-    end
   end
 
-  # GET /plates/1/edit
   def edit
     @plate = Plate.find(params[:id])
   end
 
-  # POST /plates
-  # POST /plates.json
   def create
     @plate = Plate.new(params[:plate])
 

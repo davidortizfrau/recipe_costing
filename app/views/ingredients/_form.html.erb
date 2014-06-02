@@ -8,17 +8,13 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :category %>
-    <select class="form-control" id="ingredient_category" name="ingredient[category]">
-      <%= Ingredient.categories.each do |c| %>
-        <% if @ingredient.category == c.humanize %>
-          <option selected="selected"><%= c.humanize %></option>
-        <% else %>
-          <option><%= c.humanize %></option>
-        <% end %>
-      <% end %>
-    </select>
+    <%= f.label :ingredient_category_id, "Category" %>
+    <%= link_to "(Edit Categories)", ingredient_categories_path %>
+
+    <%= f.select :ingredient_category_id, current_user.ingredient_categories.map{ |c| [c.name, c.id] }, {}, class: "form-control"  %>
   </div>
+
+  <hr>
   
   <!-- ********** Price per Unit Input ********** -->
   <div class="row">
@@ -27,10 +23,10 @@
       <%= f.text_field :price, class: "form-control" %>
     </div>
     
-
     <div class="form-group col-md-8">
       <%= f.label :unit %>
       <select class="form-control" id="ingredient_unit" name="ingredient[unit]">
+        <option></option>
         <%= Ingredient.units.each do |unit| %>
           <% if @ingredient.unit == unit %>
             <option selected="selected"><%= unit.humanize.downcase %></option>
@@ -43,22 +39,17 @@
   </div>
   <!-- ********** End Price Input ********** -->
 
-
+  <hr>
 
   <div class="form-group">
     <%= f.label :yield, "Yield (Edible Portion)" %>
-    <%= f.text_field :yield, class: "form-control" %>
+    <%= f.text_field :yield, class: "form-control", placeholder: "optional" %>
   </div>
 
   <div class="form-group">
     <%= f.label :ounces_per_cup, "Ounces per Cup (weight)" %>
-    <%= f.text_field :ounces_per_cup, class: "form-control" %>
+    <%= f.text_field :ounces_per_cup, class: "form-control", placeholder: "optional" %>
   </div>
-
-  
-
-  <%= f.hidden_field :user_id, value: current_user.id %>
-
 
   <!-- <div class="form-group">
     <%= f.label :purveyor %>

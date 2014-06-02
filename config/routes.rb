@@ -1,13 +1,23 @@
 RecipeCost::Application.routes.draw do
   
+  resources :plate_categories
+
+  resources :recipe_components
+
+  resources :recipe_categories
+
   root :to => 'pages#index'
   
   resources :sessions, only: [:new, :create, :destroy]
   resources :users
 
+  resources :ingredient_categories
+
   match '/signup', to: 'users#new'
   match '/sign_in', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
+
+  match '/menu', to: 'plates#index'
 
   resources :plate_ingredients
   resources :plate_components
@@ -15,13 +25,6 @@ RecipeCost::Application.routes.draw do
   resources :recipe_ingredients
   resources :recipes
   resources :ingredients
-
-  
-
-  match '/signup', to: 'users#new'
-  match '/signin', to: 'sessions#new'
-  match '/signout', to: 'sessions#destroy', via: :delete
-
   
   # get "pages/inventory"
 

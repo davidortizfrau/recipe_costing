@@ -10,49 +10,12 @@
     </div>
 
     <div class="form-group">
-      <%= f.label :category %>
-      <select class="form-control" id="recipe_category" name="recipe[category]">
-        <%= Recipe.categories.each do |c| %>
-          <% if @recipe.category == c %>
-            <option selected="selected"><%= c.humanize.downcase %></option>
-          <% else %>
-            <option><%= c.humanize.downcase %></option>
-          <% end %>
-        <% end %>
-      </select>
+      <%= f.label :recipe_category_id, "Category" %>
+      <%= link_to "(Edit Categories)", recipe_categories_path %>
+
+      <%= f.select :recipe_category_id, current_user.recipe_categories.map{ |c| [c.name, c.id] }, {}, class: "form-control"  %>
     </div>
-
-
-    <hr>
-    <!-- ********** Portion Input ********** -->
-    <div class="row">
-
-      <div class="form-group col-md-4">
-        <%= f.label :portions, "Portions" %>
-        <%= f.text_field :portions, class: "form-control" %>
-      </div>
-
-      <div class="form-group col-md-4">
-        <%= f.label :portion_size %>
-        <%= f.text_field :portion_size, class: "form-control" %>
-      </div>
-
-      <div class="form-group col-md-4">
-        <%= f.label :portion_unit %>
-        <select class="form-control" id="recipe_portion_unit" name="recipe[portion_unit]">
-          <option value></option>
-          <%= Ingredient.units.each do |unit| %>
-            <% if @recipe.portion_unit == unit %>
-              <option selected="selected"><%= unit.humanize.downcase %></option>
-            <% else %>
-              <option><%= unit.humanize.downcase %></option>
-            <% end %>
-          <% end %>
-        </select>
-      </div>
-    </div>
-    <!-- ********** End Portion Input ********** -->
-    <hr>
+    
     <!-- ********** Yield Input ********** -->
     <div class="row">
       <div class="form-group col-md-4">
@@ -60,10 +23,10 @@
         <%= f.text_field :yield, class: "form-control" %>
       </div>
       <div class="form-group col-md-4">
-        <%= f.label :yield_unit %>
+        <%= f.label :yield_unit, "Unit" %>
         <select class="form-control" id="recipe_yiled_unit" name="recipe[yield_unit]">
-          <option value></option>
-          <%= Ingredient.units.each do |unit| %>
+          <!-- <option value></option> -->
+          <%= Recipe.units.each do |unit| %>
 
             <% if @recipe.yield_unit == unit %>
               <option selected="selected"><%= unit.humanize.downcase %></option>
@@ -76,7 +39,6 @@
     </div>
     <!-- ********** End Yield Input ********** -->
 
-    <%= f.hidden_field :user_id, value: current_user.id %>
 
     <hr>
     <div class="actions">

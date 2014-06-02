@@ -1,49 +1,33 @@
-<div class="col-md-4">
-  
-  <!-- ********** Cost ********** -->
-  <div class="row">
-  	
-  	<div class="col-md-6">
-  		<p class="text-muted"><b><%= "Total cost".upcase %></b></p>
-	    <p class="jumbo_text"><%= number_to_currency @recipe.total_cost %></p>
-  	</div>
-  	
-  	<div class="col-md-6">
-  		<p class="text-muted"><b><%= "Portion Cost".upcase %></b></p>
-    	<p class="jumbo_text"><%= number_to_currency @recipe.serving_cost %></p>
-  	</div>
+<!-- ********** Cost ********** -->
+<div class="row">
+	<div class="col-md-6">
+		<p class="text-muted"><b><%= "Total cost".upcase %></b></p>
+    <p class="jumbo_text"><%= number_to_currency @recipe.total_cost %></p>
+	</div>
+</div>
 
+<!-- ********** For Plate Costing ********** -->
+<div class="row">
+  <div class="col-md-12">
+    <p class="text-muted"><b><%= "Total Yield".upcase %></b></p>
+    <% if @recipe.yield %>
+      <% y = @recipe.yield.to_s.gsub(/\.0$/, "") %>
+      <p class="jumbo_text"><%= pluralize( y, @recipe.yield_unit) %></p>
+    <% else %>
+      <p class="jumbo_text">-</p>
+    <% end %>
   </div>
 
-  <!-- ********** Portion ********** -->
-  <div class="row">
-
-  	<div class="col-md-6">
-  		<p class="text-muted"><b><%= "Portions".upcase %></b></p>
-   	  <p class="jumbo_text"><%= @recipe.portions.to_i %></p>
-  	</div>
-  	
-  	<div class="col-md-6">
-  		<p class="text-muted"><b><%= "Portion size".upcase %></b></p>
-	    <p class="jumbo_text"><%= @recipe.portion_size.to_i %> <%= @recipe.portion_unit %></p>
-  	</div>
-    
+  <div class="col-md-12">
+    <p class="text-muted"><b><%= "Cost per #{@recipe.yield_unit}".upcase %></b></p>
+    <% if @recipe.yield %>
+      <p class="jumbo_text"><%= number_to_currency @recipe.cost_per_unit %></p>
+    <% else %>
+      <p class="jumbo_text">-</p>
+    <% end %>
   </div>
-  
-  <!-- ********** Yield ********** -->
-  <div class="row">
-  	
-  	<div class="col-md-12">
-  		<p class="text-muted"><b><%= "Total Yield".upcase %></b></p>
-	    <p class="jumbo_text"><%= @recipe.yield.to_i %> <%= @recipe.yield_unit %></p>
-  	</div>
-
-  	<div class="col-md-6">
-  		<%= link_to "Edit", edit_recipe_path(@recipe), class: "btn btn-default" %>
-  	</div>
-
-  </div>
-  
-  
-
+	
+	<div class="col-md-6">
+		<%= link_to "Edit", edit_recipe_path(@recipe), class: "btn btn-default" %>
+	</div>
 </div>

@@ -1,43 +1,49 @@
 class Recipe < ActiveRecord::Base
-  attr_accessible :name, :category,
-                  :yield, :yield_unit,
-                  :portion_size, :portions,
-                  :portion_unit, :user_id
+  attr_accessible :name, :yield, :yield_unit, :recipe_category_id
 
   # Validations
   validates :name, presence: true
+  validates :user_id, presence: true
+  validates :recipe_category_id, presence: true
 
   # Relationships
-  belongs_to :user				  				
-  has_many :recipe_ingredients, :dependent => :destroy
+  belongs_to :user
+  belongs_to :recipe_category		  				
+  has_many :ingredients, class_name: "RecipeIngredient",:dependent => :destroy
+  has_many :components,  class_name: "RecipeComponent", :dependent => :destroy
 
   default_scope order: :name
 
-  
-
   # Class instance variables
-  @categories = %w(sauce stocks baked_goods pasta salad).sort
-  @units = %w(portion ea oz # fl_oz cup pint quart Tbsp tsp)
+  @categories = %w(sauces stocks salads proteins).sort
+  @units = %w(portion ea oz # fl_oz cup pint quart gallon Tbsp tsp)
 
   class << self
   	attr_accessor :categories, :units
   end
   # End of class instance variables
 
-  
   def total_cost
-  	t_cost = 0
-  	self.recipe_ingredients.each do |i|
-  		if i.ingredient.price
-        t_cost += i.cost
-      end
-  	end
-  	t_cost
+  	ingredients_cost + components_cost
   end
 
-  def serving_cost
-  	total_cost / self.portions if self.portions
+  def ingredients_cost
+    t_cost = 0
+    self.ingredients.each do |i|
+      t_cost += i.cost
+    end
+    t_cost
   end
 
+  def components_cost
+    t_cost = 0
+    self.components.each do |c|
+      t_cost += c.cost(c.component)
+    end
+    t_cost
+  end
 
+  def cost_per_unit
+    total_cost / self.yield if self.yield
+  end
 end

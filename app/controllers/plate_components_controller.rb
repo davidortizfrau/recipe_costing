@@ -4,6 +4,7 @@ class PlateComponentsController < ApplicationController
     @plate_component = PlateComponent.find(params[:id])
     id = @plate_component.plate.id
     @plate = Plate.find(id)
+    @recipes = current_user.recipes
   end
 
   def create

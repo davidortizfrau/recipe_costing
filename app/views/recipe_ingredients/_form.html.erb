@@ -10,28 +10,22 @@
 
         <option></option>
 
-        <% Ingredient.categories.each do |c| %>
-          <% cat = c.humanize %>
-          <% if @ingredients.where(category: cat).any? %>
-
-          <optgroup label="<%= c %>">
-            <% @ingredients.where(category: cat).each do |i| %>
-              
+        <% current_user.ingredient_categories.each do |c| %>
+          <% if c.ingredients.any? %>
+            <optgroup label="<%= c.name %>">
+            <% c.ingredients.each do |i| %>
               <% if @ingredient.ingredient && @ingredient.ingredient.id == i.id %>
-                <option value=<%= "#{i.id}" %> data-unit=<%= "#{unit?(i.unit)}" %> class="option_a" selected><%= i.name %> <%= "(#{i.unit})" %></option>
+                <option value=<%= "#{i.id}" %> data-unit=<%= "#{unit?(i.unit)}" %> data-ozcup=<%= "#{i.ounces_per_cup ? true : false }" %> class="option_a" selected><%= i.name %> <%= "(#{i.unit})" %></option>
               <% else %>
-                <option value=<%= "#{i.id}" %> data-unit=<%= "#{unit?(i.unit)}" %> class="option_a"><%= i.name %> <%= "(#{i.unit})" %></option>
+                <option value=<%= "#{i.id}" %> data-unit=<%= "#{unit?(i.unit)}" %> data-ozcup=<%= "#{i.ounces_per_cup ? true : false }" %> class="option_a"><%= i.name %> <%= "(#{i.unit})" %></option>
               <% end %>
             <% end %>
           </optgroup>
-
           <% end %>
-            
-
         <% end %>
-
       </select>
     </div>
+
 
     
     <div class="form-group col-md-2">
@@ -64,11 +58,4 @@
       <% end %>
     </div>
   </div>
-    
 <% end %>
-
-
-<%#= f.select :ingredient_id, @ingredients.all.collect {|i| [ "#{i.name} (#{i.unit})", i.id ] }, { include_blank: true }, class: "form-control" %>
-
-<%#= f.select :unit, Ingredient.units, { include_blank: true }, class: "form-control" %>
-

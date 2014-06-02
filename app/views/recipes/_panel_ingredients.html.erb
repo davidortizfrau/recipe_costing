@@ -1,5 +1,5 @@
-<div class="col-xs-8">
-	<div class="panel panel-default" id="recipes_ingredient_form">
+
+	<div class="panel panel-success" id="recipes_ingredient_form">
 		<div class="panel-heading">
       <h3 class="panel-title">Ingredients</h3>
     </div>
@@ -14,16 +14,22 @@
             <th></th>
           </tr>
         </thead>
-        <% @recipe.recipe_ingredients.each do |i| %>
+        <% @recipe.ingredients.each do |i| %>
           
           <tr>
             <td><%= i.quantity %> <%= i.unit %></td>
             <td>
 
-              <%= link_to i.ingredient.name, edit_ingredient_path(i.ingredient), class: "tip", data: {toggle: "tooltip", placement: "right", title: "#{number_to_currency i.ingredient.price} / #{i.ingredient.unit}"} %>
+              <% unless i.ingredient.yield %>
+                <% @tooltip = "#{number_to_currency i.ingredient.price} / #{i.ingredient.unit}" %>
+              <% else %>
+                <% @tooltip = "#{number_to_currency i.ingredient.price} / #{i.ingredient.unit}, EP: #{i.ingredient.yield.to_i}%" %>
+              <% end %>
+
+              <%= link_to i.ingredient.name, edit_ingredient_path(i.ingredient), class: "tip", data: {toggle: "tooltip", placement: "top", title: "#{@tooltip}"} %>
 
             </td>
-            <td><%= number_to_currency i.cost if i.ingredient.price %></td>
+            <td><%= number_to_currency i.cost %></td>
             <td><%= link_to "Edit", edit_recipe_ingredient_path(i) %></td>
             <td><%= link_to "Delete", i, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
@@ -31,7 +37,6 @@
       </table>
       <%= render "recipe_ingredients/form" %>
 
-      <%= link_to "Add Ingredient", "#", { class: "btn btn-primary", id: "add_ingredient" } %>
+      <%= link_to "Add Ingredient", "#", { class: "btn btn-success", id: "add_ingredient" } %>
     </div>
 	</div>
-</div>

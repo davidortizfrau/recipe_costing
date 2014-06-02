@@ -12,13 +12,18 @@ class User < ActiveRecord::Base
 						format: { with: VALID_EMAIL_REGEX },
 						uniqueness: { case_sensitive: false }
 	
-	validates :password, presence: true, length: { minimum: 4 }
-	validates :password_confirmation, presence: true
+	validates :password, length: { minimum: 4 }, on: :create
+  validates :password_confirmation,  presence: true, on: :create
 
 	# Relationships
 	has_many :ingredients, :dependent => :destroy
+	has_many :ingredient_categories, :dependent => :destroy
+	
 	has_many :recipes, :dependent => :destroy
+	has_many :recipe_categories, :dependent => :destroy
+
 	has_many :plates, :dependent => :destroy
+	has_many :plate_categories, :dependent => :destroy
 
 private
 

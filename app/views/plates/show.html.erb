@@ -1,10 +1,7 @@
-<h1 class="page-header"><%= @plate.name %></h1>
+<h1 class="page-header"><%= @plate.name %> <small>(<%= @plate.plate_category.name %>)</small></h1>
 
 <div class="row">
-	
-	<%= render "stats" %>
+	<%#= render "stats" %>
 	<%= render "panel_components" %>
 	<%= render "panel_ingredients" %>
 </div>
-
-

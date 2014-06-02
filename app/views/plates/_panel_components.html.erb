@@ -16,18 +16,17 @@
             <th></th>
           </tr>
         </thead>
-        <% @plate.plate_components.each do |plate_component| %>
+        <% @plate.components.each do |component| %>
           <tr>
-            <td><%= plate_component.quantity %> <%= plate_component.unit %></td>
+            <td><%= component.quantity %> <%= component.unit.humanize.downcase %></td>
             <td>
 
-                <%= link_to plate_component.recipe.name, plate_component.recipe, class: "tip", data: {toggle: "tooltip", placement: "right", title: "#{number_to_currency plate_component.recipe.total_cost} / #{plate_component.recipe.serving_cost}"} %>
-
+              <%= link_to component.recipe.name, component.recipe, class: "tip", data: {toggle: "tooltip", placement: "right", title: "#{number_to_currency component.recipe.cost_per_unit} / #{component.recipe.yield_unit}"} %>
 
             </td>
-            <td><%= number_to_currency plate_component.cost %></td>
-            <td><%= link_to 'Edit', edit_plate_component_path(plate_component) %></td>
-            <td><%= link_to 'Delete', plate_component, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= number_to_currency component.cost(component.recipe) %></td>
+            <td><%= link_to 'Edit', edit_plate_component_path(component) %></td>
+            <td><%= link_to 'Delete', component, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
         <% end %>
     	</table>	

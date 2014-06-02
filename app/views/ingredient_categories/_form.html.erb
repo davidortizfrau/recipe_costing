@@ -1,0 +1,26 @@
+<%= form_for(@ingredient_category) do |f| %>
+  <% if @ingredient_category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ingredient_category.errors.count, "error") %> prohibited this ingredient_category from being saved:</h2>
+
+      <ul>
+      <% @ingredient_category.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <% if @ingredient_category.name %>
+      <%= f.submit "Edit Category", class: "btn btn-default" %>
+    <% else %>
+      <%= f.submit "Add Category", class: "btn btn-default" %>
+    <% end %>
+  </div>
+<% end %>

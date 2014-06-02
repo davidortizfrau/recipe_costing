@@ -1,0 +1,33 @@
+<h1 class="page-header">Recipe Categories</h1>
+
+
+<div class="row">
+  <div class="col-md-4">
+    <table class="table">
+      <thead>
+          <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+
+    <% @recipe_categories.each do |recipe_category| %>
+      <tr>
+        <td><%= recipe_category.name %></td>
+        <td><%= link_to 'Edit', edit_recipe_category_path(recipe_category) %></td>
+        <td><%= link_to 'Delete', recipe_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+    </table>
+  </div>
+
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">New Category</div>
+      <div class="panel-body">
+        <%= render 'form' %>
+      </div>
+    </div>
+  </div>
+</div>
