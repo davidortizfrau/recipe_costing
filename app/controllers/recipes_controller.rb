@@ -1,4 +1,6 @@
 class RecipesController < ApplicationController
+  
+  before_filter :correct_user, only: [:show, :edit, :update, :destroy]
 
   def index
     redirect_to new_recipe_path unless current_user.recipes.any?
@@ -51,5 +53,12 @@ class RecipesController < ApplicationController
   def destroy
     @recipe = Recipe.find(params[:id]).destroy
     redirect_to recipes_url
+  end
+
+private
+
+  def correct_user
+    @recipe = Recipe.find(params[:id])
+    redirect_to root_path unless current_user?(@recipe.user)
   end
 end

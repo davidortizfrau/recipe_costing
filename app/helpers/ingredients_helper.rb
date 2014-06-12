@@ -2,7 +2,7 @@ module IngredientsHelper
 	 def cost
     ing = self.ingredient
 
-    same_units = self.ingredient.unit == self.unit && ing.price != nil && self.quantity != nil
+    same_units = self.ingredient.unit == self.unit && ing.price? && self.quantity?
     weight_units = weight_unit?(ing.unit) && weight_unit?(self.unit) 
     volume_units = volume_unit?(ing.unit) && volume_unit?(self.unit)
     
@@ -22,6 +22,5 @@ module IngredientsHelper
   def q_yield
     self.ingredient.yield ||= 100
     self.quantity / (self.ingredient.yield / 100) if self.quantity?
-    0 if !self.quantity?
   end
 end

@@ -1,5 +1,7 @@
 class RecipeIngredientsController < ApplicationController
 
+  before_filter :correct_user, only: [:edit, :update, :destroy]
+
   def edit
     @ingredient = RecipeIngredient.find(params[:id])
     @recipe = @ingredient.recipe
@@ -31,5 +33,12 @@ class RecipeIngredientsController < ApplicationController
   def destroy
     @ingredient = RecipeIngredient.find(params[:id]).destroy
     redirect_to request.referrer
+  end
+
+private
+
+  def correct_user
+    @ingredient = RecipeIngredient.find(params[:id])
+    redirect_to root_path unless current_user?(@ingredient.ingredient.user)
   end
 end

@@ -1,5 +1,6 @@
 class IngredientCategoriesController < ApplicationController
-
+  before_filter :correct_user, only: [:edit, :update, :destroy]
+  
   def index
     @ingredient_categories = current_user.ingredient_categories
     @ingredient_category = IngredientCategory.new
@@ -34,5 +35,12 @@ class IngredientCategoriesController < ApplicationController
   def destroy
     @ingredient_category = IngredientCategory.find(params[:id]).destroy
     redirect_to ingredient_categories_url
+  end
+
+private
+
+  def correct_user
+    @ingredient_category = IngredientCategory.find(params[:id])
+    redirect_to root_path unless current_user?(@ingredient_category.user)
   end
 end

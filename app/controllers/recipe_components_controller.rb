@@ -1,9 +1,10 @@
 class RecipeComponentsController < ApplicationController
+  
+  before_filter :correct_user, only: [:edit, :update, :destroy]
 
   def edit
     @recipe_component = RecipeComponent.find(params[:id])
     @recipe = @recipe_component.recipe
-    # @recipes_i_belong = @recipe_component.recipe
     @recipes = current_user.recipes.to_a - [@recipe]
   end
 
@@ -32,5 +33,12 @@ class RecipeComponentsController < ApplicationController
   def destroy
     @recipe_component = RecipeComponent.find(params[:id]).destroy
     redirect_to @recipe_component.recipe 
+  end
+
+private
+
+  def correct_user
+    @recipe_component = RecipeComponent.find(params[:id])
+    redirect_to root_path unless current_user?(@recipe_component.recipe.user)
   end
 end

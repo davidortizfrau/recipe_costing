@@ -1,5 +1,7 @@
 class PlateComponentsController < ApplicationController
 
+  before_filter :correct_user, only: [:edit, :update, :destroy]
+
   def edit
     @plate_component = PlateComponent.find(params[:id])
     id = @plate_component.plate.id
@@ -29,14 +31,17 @@ class PlateComponentsController < ApplicationController
       else
         redirect_to request.referer
       end
-
   end
 
-  # DELETE /plate_components/1
-  # DELETE /plate_components/1.json
   def destroy
     @plate_component = PlateComponent.find(params[:id]).destroy
-
     redirect_to @plate_component.plate
+  end
+
+private
+
+  def correct_user
+    @plate_component = PlateComponent.find(params[:id])
+    redirect_to root_path unless current_user?(@plate_component.recipe.user)
   end
 end

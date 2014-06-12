@@ -1,5 +1,7 @@
 class PlateIngredientsController < ApplicationController
 
+  before_filter :correct_user, only: [:edit, :update, :destroy]
+
   def edit
     @plate_ingredient = PlateIngredient.find(params[:id])
     id = @plate_ingredient.plate.id
@@ -31,9 +33,14 @@ class PlateIngredientsController < ApplicationController
   end
 
   def destroy
-    @plate_ingredient = PlateIngredient.find(params[:id])
-    @plate_ingredient.destroy
-
+    @plate_ingredient = PlateIngredient.find(params[:id]).destroy
     redirect_to @plate_ingredient.plate
+  end
+
+private
+
+  def correct_user
+    @plate_ingredient = PlateIngredient.find(params[:id])
+    redirect_to root_path unless current_user?(@plate_ingredient.ingredient.user)
   end
 end

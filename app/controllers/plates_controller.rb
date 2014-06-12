@@ -1,4 +1,5 @@
 class PlatesController < ApplicationController
+  before_filter :correct_user, only: [:show, :edit, :update, :destroy]
 
   def index
     redirect_to new_plate_path unless current_user.plates.any?
@@ -23,43 +24,34 @@ class PlatesController < ApplicationController
   def create
     @plate = Plate.new(params[:plate])
 
-    respond_to do |format|
-      if @plate.save
-        flash[:success] = "Plate was successfully created."
-        format.html { redirect_to @plate }
-        format.json { render json: @plate, status: :created, location: @plate }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @plate.errors, status: :unprocessable_entity }
-      end
+    if @plate.save
+      flash[:success] = "Plate was successfully created."
+      redirect_to @plate
+    else
+      render action: "new"
     end
   end
 
-  # PUT /plates/1
-  # PUT /plates/1.json
   def update
     @plate = Plate.find(params[:id])
 
-    respond_to do |format|
-      if @plate.update_attributes(params[:plate])
-        format.html { redirect_to @plate, notice: 'Plate was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @plate.errors, status: :unprocessable_entity }
-      end
+    if @plate.update_attributes(params[:plate])
+      flash[:success] = "#{@plate.name} was successfully updated"
+      redirect_to @plate
+    else
+      render action: "edit"
     end
   end
 
-  # DELETE /plates/1
-  # DELETE /plates/1.json
   def destroy
-    @plate = Plate.find(params[:id])
-    @plate.destroy
+    @plate = Plate.find(params[:id]).destroy
+    redirect_to plates_url
+  end
 
-    respond_to do |format|
-      format.html { redirect_to plates_url }
-      format.json { head :no_content }
-    end
+private
+
+  def correct_user
+    @plate = Plate.find(params[:id])
+    redirect_to plates_url unless current_user?(@plate.user)
   end
 end

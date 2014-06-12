@@ -1,4 +1,5 @@
 class PlateCategoriesController < ApplicationController
+  before_filter :correct_user, only: [:edit, :update, :destroy]
 
   def index
     @plate_categories = current_user.plate_categories
@@ -35,4 +36,12 @@ class PlateCategoriesController < ApplicationController
     @plate_category = PlateCategory.find(params[:id]).destroy
     redirect_to plate_categories_path
   end
+
+private
+
+  def correct_user
+    @plate_category = PlateCategory.find(params[:id])
+    redirect_to root_path unless current_user?(@plate_category.user)
+  end
+
 end

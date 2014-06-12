@@ -1,10 +1,14 @@
 class IngredientsController < ApplicationController
-  before_filter :correct_user, only: [:edit, :update, :destroy]
+  before_filter :correct_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    redirect_to new_ingredient_path unless current_user.ingredients.any?
-    @ingredients = current_user.ingredients
-    @categories = current_user.ingredient_categories
+    if signed_in?
+      redirect_to new_ingredient_path unless current_user.ingredients.any?
+      @ingredients = current_user.ingredients
+      @categories = current_user.ingredient_categories
+    else
+      redirect_to root_path
+    end
   end
 
   def new
