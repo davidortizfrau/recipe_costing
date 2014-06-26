@@ -12,14 +12,14 @@
     <p class="text-muted"><b><%= "Total Yield".upcase %></b></p>
     <% if @recipe.yield %>
       <% y = @recipe.yield.to_s.gsub(/\.0$/, "") %>
-      <p class="jumbo_text"><%= pluralize( y, @recipe.yield_unit) %></p>
+      <p class="jumbo_text"><%= pluralize( y, @recipe.yield_unit.humanize.downcase) %></p>
     <% else %>
       <p class="jumbo_text">-</p>
     <% end %>
   </div>
 
   <div class="col-md-12">
-    <p class="text-muted"><b><%= "Cost per #{@recipe.yield_unit}".upcase %></b></p>
+    <p class="text-muted"><b><%= "Cost per #{@recipe.yield_unit.humanize.downcase}".upcase %></b></p>
     <% if @recipe.yield %>
       <p class="jumbo_text"><%= number_to_currency @recipe.cost_per_unit %></p>
     <% else %>

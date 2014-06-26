@@ -29,9 +29,9 @@
           <%= Recipe.units.each do |unit| %>
 
             <% if @recipe.yield_unit == unit %>
-              <option selected="selected"><%= unit.humanize.downcase %></option>
+              <option selected="selected" value="<%= unit %>"><%= unit.humanize.downcase %></option>
             <% else %>
-              <option><%= unit.humanize.downcase %></option>
+              <option value="<%= unit %>"><%= unit.humanize.downcase %></option>
             <% end %>
           <% end %>
         </select>
@@ -46,9 +46,5 @@
     </div>
 
   </div>
-
-    
- 
-  
   
 <% end %>
