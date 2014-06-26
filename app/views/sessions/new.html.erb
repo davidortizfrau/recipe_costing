@@ -5,12 +5,20 @@
 		<%= form_for(:session, url: sessions_path) do |f| %>
 			<div class="form-group">
 				<%= f.label :email %>
-				<%= f.text_field :email, class: "form-control" %>
+				<% if request.path == "/demo" %>
+				  <%= f.text_field :email, class: "form-control", value: "demo@gmail.com" %>
+				<% else %>
+					<%= f.text_field :email, class: "form-control" %>
+				<% end %>
 			</div>
 			
 			<div class="form-group">
 				<%= f.label :password %>
-				<%= f.password_field :password, class: "form-control" %>
+				<% if request.path == "/demo" %>
+					<%= f.password_field :password, class: "form-control", value: "demo" %>
+				<% else %>
+					<%= f.password_field :password, class: "form-control" %>
+				<% end %>
 			</div>
 				
 			<%= f.submit "Sign in", class: "btn btn-large btn-primary" %>

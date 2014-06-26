@@ -12,6 +12,11 @@ class SessionsController < ApplicationController
 			render 'new'
 		end
 	end
+
+	def demo
+		flash[:success] = "Go ahead and sign in with our demo user. Feel free to play around and create a few recipes."
+		render 'new'
+	end
 	
 	def destroy
 		sign_out

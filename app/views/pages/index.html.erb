@@ -1,18 +1,30 @@
 <div class="jumbotron" id="index_jumbotron">
-  <h1 style="font-family: 'Lily Script One', cursive;">What's your Food Cost ?</h1>
-  <p>Don't go another day without truly knowing your food cost percentage...</p>
-  <br>
-  <p><%= link_to "Sign up", signup_path, class: "btn btn-primary btn-lg" %></p>
+	<div id="gradient"></div>
+	<%#= image_tag "pizza.png" %>
+	<%= image_tag "chart.png" %>
+	<div id="cta">
+	  <h1>What's your Food Cost %?</h1>
+	  <p>Don't go another day without truly knowing your food cost percentage...</p>
+	  <br>
+	  <p>
+	  	<%= link_to "Sign up", signup_path, class: "btn btn-primary btn-lg" %>
+	  	<%= link_to "Demo", "/demo", class: "btn btn-default btn-lg" %>
+	  </p>
+  </div>
+
 </div>
 
-<!-- <div class="row">
-	<div class="col-xs-4">
-		<h2>Step 1</h2>
+
+
+
+<div class="row">
+<!-- 	<div class="col-xs-4">
+		<h2>Inventory</h2>
 	</div>
 	<div class="col-xs-4">
-		<h2>Step 2</h2>
+		<h2>Recipe Costing</h2>
 	</div>
 	<div class="col-xs-4">
-		<h2>Step 3</h2>
+		<h2>Purchase Orders</h2>
 	</div>
 </div> -->

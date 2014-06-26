@@ -13,8 +13,9 @@ RecipeCost::Application.routes.draw do
 
   resources :ingredient_categories
 
-  match '/signup', to: 'users#new'
+  match '/signup',  to: 'users#new'
   match '/sign_in', to: 'sessions#new'
+  match '/demo',    to: 'sessions#demo'
   match '/signout', to: 'sessions#destroy', via: :delete
 
   match '/menu', to: 'plates#index'
