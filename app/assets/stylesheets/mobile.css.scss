@@ -1,4 +1,4 @@
-@media(max-width:767px){ 
+@media(max-width: $screen-xs-max) { 
 	
 	body {
 		padding-top: 70px;
@@ -11,7 +11,7 @@
 		
 		h1 { 
 			font-size: 1em;
-			font-family: "Permanent Marker" 
+			font-family: "Permanent Marker";
 		}
 		p { font-size: .8em }
 
@@ -19,6 +19,7 @@
 
 	h1.page-header { 
 		font-size: 1.5em; 
+		margin-top: 0px;
 		a {
 			margin-top: -10px;
 		}

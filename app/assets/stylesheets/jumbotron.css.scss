@@ -1,5 +1,5 @@
 #index_jumbotron {
-	background-color: #397AC7;
+	background-color: #333;
 	color: white;
 	position: relative;
 	z-index: 0;
@@ -31,9 +31,42 @@
 			font-family: 'Cookie', cursive;
 			font-size: 4.5em;
 		}
+
+		@media(max-width: $screen-md-max) {
+			h1 { font-size: 3em; }
+			p { font-size: .8em;}	
+		}
+		@media(max-width: $screen-sm-max) {
+			h1 { font-size: 2.4em; }
+			p { font-size: .8em;}	
+		}
+		@media(max-width: $screen-xs-max) {
+			h1 { font-size: 1.8em; }
+			p { font-size: .8em;}	
+		}
 	}
 
 	img {
 		float: right;
+
+		@media(max-width: $screen-md-max) {
+			max-width: 230px;
+		}
+		@media(max-width: $screen-sm-max) {
+			max-width: 180px;
+		}
+		@media(max-width: $screen-xs-max) {
+			display: none;
+		}
 	}
+
+	@media(max-width: $screen-sm-max) {
+		padding: 30px 40px;
+	}
+
+	@media(max-width: $screen-xs-max) {
+		text-align: center;
+		padding: 10px 20px 25px;
+	}
+
 }

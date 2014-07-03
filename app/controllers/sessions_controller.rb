@@ -14,8 +14,16 @@ class SessionsController < ApplicationController
 	end
 
 	def demo
-		flash[:success] = "Go ahead and sign in with our demo user. Feel free to play around and create a few recipes."
-		render 'new'
+		# flash.now[:success] = "Go ahead and sign in with our demo user. Feel free to play around and create a few recipes."
+		# render 'new'
+		user = User.find_by_email("demo@recipecost.menu")
+		if user && user.authenticate("demo")
+			sign_in user
+			redirect_to ingredients_path
+		else
+			flash.now[:danger] = 'Invalid email/password combination'
+			render 'new'
+		end
 	end
 	
 	def destroy

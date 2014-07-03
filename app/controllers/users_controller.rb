@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  http_basic_authenticate_with name:     ENV["ADMIN_USER"], 
-                               password: ENV["ADMIN_PASS"],
-                               only: :index
+  # http_basic_authenticate_with name:     ENV["ADMIN_USER"], 
+  #                              password: ENV["ADMIN_PASS"],
+  #                              only: :index
   def index
     @users = User.all
   end
@@ -12,6 +12,7 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    redirect_to new_user_path if current_user.name == "Demo"
   end
 
   def create
