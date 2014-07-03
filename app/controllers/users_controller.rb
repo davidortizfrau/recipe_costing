@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  http_basic_authenticate_with name:     "admin", 
-                               password: "admin",
+  http_basic_authenticate_with name:     ENV["ADMIN_USER"], 
+                               password: ENV["ADMIN_PASS"],
                                only: :index
   def index
     @users = User.all
