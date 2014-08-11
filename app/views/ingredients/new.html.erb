@@ -1,7 +1,26 @@
-<h1 class="page-header">New ingredient</h1>
+<section class="color color-ingredient col-sm-4">
+  <h1 class="page-header">New ingredient</h1>
+  <aside id="tip">
+  	<span class="glyphicon glyphicon-star"></span>
+    <h5>Tip</h5>
+    <p>If there are different types of same ingredient you can use a dash to specify a more descriptive name.</p>
+    <h5>Examples</h5>
+    <ul>
+    	<li>Onion - Yellow</li>
+    	<li>Onion - Red</li>
+    	<li>Flour - AP</li>
+    	<li>Flour - Bread</li>
+    </ul>
 
-<div class="row">
-	<div class="col-md-4">
-		<%= render 'form' %>
+  </aside>
+</section>
+
+<section id="resources" class="col-sm-8">
+	<div class="row">
+		<div class="col-md-6">
+			<%= render 'form' %>
+		</div>
 	</div>
-</div>
+</section>
+
+<%= javascript_include_tag "ingredient" %>

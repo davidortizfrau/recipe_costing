@@ -13,8 +13,8 @@ class Plate < ActiveRecord::Base
   has_many :ingredients, class_name: "PlateIngredient", :dependent => :destroy
 
   # Class instance variables
-  @categories = %w(appetizer entree dessert)
-  @units = %w(portion ea oz # fl_oz cup pint quart Tbsp tsp)
+  @categories = %w(appetizer entree dessert other)
+  @units = %w(portion ea oz lb fl_oz cup pint quart Tbsp tsp)
 
   class << self
   	attr_accessor :categories, :units

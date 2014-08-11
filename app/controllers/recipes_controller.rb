@@ -5,6 +5,7 @@ class RecipesController < ApplicationController
   def index
     redirect_to new_recipe_path unless current_user.recipes.any?
     @recipes = current_user.recipes.includes(ingredients: :ingredient).all
+    @categories = current_user.recipe_categories
   end
 
   def show

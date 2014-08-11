@@ -1,32 +1,40 @@
-<h1 class="page-header">Ingredient Categories</h1>
+<section class="color color-ingredient col-sm-4">
+  <h1 class="page-header">Ingredient Categories</h1>
+  <aside id="tip">
+    <span class="glyphicon glyphicon-star"></span>
+    <h5>Examples</h5>
+    <p>(Dry, Pantry)</p>
+  </aside> 
+</section>
 
-<div class="row">
-<div class="col-md-4">
-  <table class="table">
-    <thead>
+<section id="resources" class="col-sm-8">
+
+  <div class="col-md-4">
+    <table class="table">
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+
+    <% @ingredient_categories.each do |ingredient_category| %>
       <tr>
-        <th></th>
-        <th></th>
-        <th></th>
+        <td><%= ingredient_category.name %></td>
+        <td><%= link_to 'Edit', edit_ingredient_category_path(ingredient_category) %></td>
+        <td><%= link_to 'Delete', ingredient_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
-    </thead>
+    <% end %>
+    </table>
+  </div>
 
-  <% @ingredient_categories.each do |ingredient_category| %>
-    <tr>
-      <td><%= ingredient_category.name %></td>
-      <td><%= link_to 'Edit', edit_ingredient_category_path(ingredient_category) %></td>
-      <td><%= link_to 'Delete', ingredient_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-  <% end %>
-  </table>
-</div>
-
-<div class="col-md-4">
-  <div class="panel panel-default">
-    <div class="panel-heading">New Category</div>
-    <div class="panel-body">
-      <%= render 'form' %>
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">New Category</div>
+      <div class="panel-body">
+        <%= render 'form' %>
+      </div>
     </div>
   </div>
-</div>
-</div>
+</section>

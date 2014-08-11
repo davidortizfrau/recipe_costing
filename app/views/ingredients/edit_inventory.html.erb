@@ -1,0 +1,28 @@
+<h1 class="page-header">Edit Inventory</h1>
+
+
+<%= form_tag update_inventory_path, method: :put do %>
+  <% @ingredients.each do |ingredient| %>
+  	<div class="row">
+      <p class="col-md-3" style="display:inline"><%= ingredient.name %> (<%= ingredient.unit %>)</p>
+		  <%= fields_for "ingredients[]", ingredient do |f| %>
+			  <div class="col-md-4">
+			  <%= f.text_field :price, class: "form-control" %>
+				</div>
+			<% end %>
+		</div>
+  <% end %>
+  <%= submit_tag "Update", class: "btn btn-success" %></td>
+<% end %>
+
+
+
+
+
+
+      
+
+  
+  
+
+

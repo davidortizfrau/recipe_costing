@@ -15,8 +15,8 @@ class Recipe < ActiveRecord::Base
   default_scope order: :name
 
   # Class instance variables
-  @categories = %w(sauces stocks salads proteins).sort
-  @units = %w(portion ea oz # fl_oz cup pint quart gallon Tbsp tsp)
+  @categories = %w(sauces stocks salads proteins other).sort
+  @units = %w(portion ea oz lb fl_oz cup pint quart gallon Tbsp tsp)
 
   class << self
   	attr_accessor :categories, :units

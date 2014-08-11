@@ -1,11 +1,15 @@
-<h1 class="page-header"><%= @recipe.name %> <small><%= @recipe.recipe_category.name %></small></h1>
+<section class="col-sm-4 color color-recipe">
+  <h1 class="page-header"><%= @recipe.name %></h1>
+  <%= render "stats" %>
+  <hr>
+  <a id="add" href="<%= edit_recipe_path(@recipe) %>">
+  	<span class="glyphicon glyphicon-edit"></span>
+    Edit Recipe
+    <!-- <span class="glyphicon glyphicon-edit"></span> -->
+  </a>
+</section>
 
-<div class="row">
-	<div class="col-md-4">
-  	<%= render "stats" %>
-	</div>
-	<div class="col-md-8">
-	  <%= render "panel_ingredients" %>
-	  <%= render "panel_components" %>
-	</div>
-</div>
+<section id="resources" class="col-sm-8">
+  <%= render "panel_ingredients" %>
+  <%= render "panel_components" %>
+</section>

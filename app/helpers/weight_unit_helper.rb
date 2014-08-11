@@ -2,14 +2,14 @@ module WeightUnitHelper
 	def weight_unit?(unit)
 		case unit
 		  when 'oz' then true
-		  when '#' then true
+		  when 'lb' then true
 		  else false
 		end
 	end
 
 	def convert_to_oz(amount, unit)
 		case unit
-			when '#'  then amount * 16
+			when 'lb'  then amount * 16
 			when 'oz' then amount			
 		end
 	end

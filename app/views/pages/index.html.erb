@@ -1,19 +1,21 @@
 <div class="jumbotron" id="index_jumbotron">
-	<div id="gradient"></div>
-	<%#= image_tag "pizza.png" %>
-	<%= image_tag "chart.png" %>
-	<div id="cta">
-	  <h1>What's your Food Cost %?</h1>
-	  <p>Don't go another day without truly knowing your food cost percentage...</p>
-	  <br>
-	  <p>
-	  	<%= link_to "Sign up", signup_path, class: "btn btn-primary btn-lg" %>
-	  	<%= link_to "Demo", "/demo", class: "btn btn-default btn-lg" %>
-	  </p>
+	<div class="container">
+		<div id="gradient"></div>
+		<%#= image_tag "pizza.png" %>
+		<%= image_tag "chart.png" %>
+		<div id="cta">
+		  <h1>What's your Food Cost %?</h1>
+		  <p>Don't go another day without truly knowing your food cost percentage...</p>
+		  <br>
+		  <p>
+		  	<%= link_to "Sign up", signup_path, class: "btn btn-primary btn-lg" %>
+		  	<%= link_to "Demo", "/demo", class: "btn btn-default btn-lg" %>
+		  </p>
+	  </div>
   </div>
-
 </div>
 
+<div class="container">
 <div id="overview" class="row">
 	<div class="col-xs-4">
 		<h2>Recipe Costing</h2>
@@ -27,4 +29,5 @@
 		<h2>Menu</h2>
 		<p>Quisque lorem nibh, blandit eget nulla ut, ullamcorper congue dolor. Maecenas accumsan nisl ac sapien mattis, eget cursus tortor tincidunt.</p>
 	</div>
+</div>
 </div>

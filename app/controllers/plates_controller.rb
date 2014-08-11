@@ -4,6 +4,7 @@ class PlatesController < ApplicationController
   def index
     redirect_to new_plate_path unless current_user.plates.any?
     @plates = current_user.plates
+    @categories = current_user.plate_categories
   end
 
   def show

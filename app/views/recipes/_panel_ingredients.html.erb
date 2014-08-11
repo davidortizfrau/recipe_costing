@@ -1,42 +1,41 @@
+<div class="panel panel-success" id="recipes_ingredient_form">
+	<div class="panel-heading">
+    <h3 class="panel-title">Ingredients</h3>
+  </div>
+  <div class="panel-body" id="recipe_ingredients_form">
+  	<table class="table">
+      <thead>
+        <tr>
+          <th>Amount</th>
+          <th>Ingredient</th>
+          <th>Cost</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <% @recipe.ingredients.each do |i| %>
+        
+        <tr>
+          <td><%= i.quantity %> <%= i.unit %></td>
+          <td>
 
-	<div class="panel panel-success" id="recipes_ingredient_form">
-		<div class="panel-heading">
-      <h3 class="panel-title">Ingredients</h3>
-    </div>
-    <div class="panel-body" id="recipe_ingredients_form">
-    	<table class="table">
-        <thead>
-          <tr>
-            <th>Amount</th>
-            <th>Ingredient</th>
-            <th>Cost</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <% @recipe.ingredients.each do |i| %>
-          
-          <tr>
-            <td><%= i.quantity %> <%= i.unit %></td>
-            <td>
+            <% unless i.ingredient.yield %>
+              <% @tooltip = "#{number_to_currency i.ingredient.price} / #{i.ingredient.unit}" %>
+            <% else %>
+              <% @tooltip = "#{number_to_currency i.ingredient.price} / #{i.ingredient.unit}, EP: #{i.ingredient.yield.to_i}%" %>
+            <% end %>
 
-              <% unless i.ingredient.yield %>
-                <% @tooltip = "#{number_to_currency i.ingredient.price} / #{i.ingredient.unit}" %>
-              <% else %>
-                <% @tooltip = "#{number_to_currency i.ingredient.price} / #{i.ingredient.unit}, EP: #{i.ingredient.yield.to_i}%" %>
-              <% end %>
+            <%= link_to i.ingredient.name, edit_ingredient_path(i.ingredient), class: "tip", data: {toggle: "tooltip", placement: "top", title: "#{@tooltip}"} %>
 
-              <%= link_to i.ingredient.name, edit_ingredient_path(i.ingredient), class: "tip", data: {toggle: "tooltip", placement: "top", title: "#{@tooltip}"} %>
+          </td>
+          <td><%= number_to_currency i.cost %></td>
+          <td><%= link_to "Edit", edit_recipe_ingredient_path(i) %></td>
+          <td><%= link_to "Delete", i, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </table>
+    <%= render "recipe_ingredients/form" %>
 
-            </td>
-            <td><%= number_to_currency i.cost %></td>
-            <td><%= link_to "Edit", edit_recipe_ingredient_path(i) %></td>
-            <td><%= link_to "Delete", i, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          </tr>
-        <% end %>
-      </table>
-      <%= render "recipe_ingredients/form" %>
-
-      <%= link_to "Add Ingredient", "#", { class: "btn btn-success", id: "add_ingredient" } %>
-    </div>
-	</div>
+    <%= link_to "Add Ingredient", "#", { class: "btn btn-success", id: "add_ingredient" } %>
+  </div>
+</div>

@@ -1,0 +1,91 @@
+section.color {
+	color: white;
+	text-align: right;
+	padding: 0 0 50px 0;
+	height: 100%;
+
+	@media(max-width: $screen-xs-max) {
+		height: auto;
+	}
+
+  h1 {
+  	padding-right: 50px;
+    font-weight: 100;
+  }
+
+	a {
+		color: white;
+		display: block;
+		font-size: 2em;
+		font-weight: 100;
+		padding-right: 50px;
+		
+		&.active {
+			background-color: rgba(255,255,255,.1);
+			color: $white;
+			/*border-top: 1px solid white;
+			border-bottom: 1px solid white;*/
+			font-weight: 300;
+		}
+
+		&:hover {
+			text-decoration: none;
+			opacity: .75;
+		}
+	}
+
+	a#add {
+		font-size: 1em;
+		font-weight: 300;
+		text-transform: uppercase;
+	}
+}
+
+.color-default {
+	background-color: $blueDark;
+}
+
+.color-ingredient {
+	background-color: $ingredient;
+}
+
+.color-recipe {
+	background-color: $recipe;
+}
+
+.color-plate {
+	background-color: $plate;
+}
+
+#resources {
+	padding: 58px 50px;
+
+	@media(max-width: $screen-xs-max) {
+		padding: 15px;
+	}
+}
+
+#stats {
+	margin-right: 50px;
+
+	.text-muted {
+		color: white;
+		font-weight: 400;
+		margin-top: 20px;
+		margin-bottom: 5px;
+	}
+
+	.jumbo_text {
+		font-weight: 100;
+	}
+}
+
+#tip {
+	text-align: left;
+	margin: 0 50px;
+	h5 {
+		text-transform: uppercase;
+		display: inline;
+		font-weight: 300;
+	}
+}

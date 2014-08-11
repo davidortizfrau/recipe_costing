@@ -19,6 +19,11 @@ RecipeCost::Application.routes.draw do
   match '/signout', to: 'sessions#destroy', via: :delete
 
   match '/menu', to: 'plates#index'
+  match '/inventory', to: 'ingredients#index'
+  match '/edit_inventory', to: 'ingredients#edit_inventory'
+  match '/edit_prices', to: 'ingredients#edit_prices'
+  match '/update_inventory', to: 'ingredients#update_inventory', via: :put
+  match '/update_prices', to: 'ingredients#update_prices', via: :put
 
   resources :plate_ingredients
   resources :plate_components

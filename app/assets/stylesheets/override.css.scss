@@ -1,17 +1,13 @@
+body, html {
+  height: 100%;
+}
+
 body {
-  padding-top: 70px;
-  padding-bottom: 100px;
-  /*background-image: url("/assets/plateset.png");*/
-  background-repeat: no-repeat;
-  background-position: bottom;
+  padding-top: 50px;
 }
 
 .navbar-default {
-	// background-color: #E96B56;
-	// border-color: #D24344;
-	// background-color: #FFBB00;
-	// border-color: #5F700A;
-	// color: white;
+	background-color: white;
 }
 
 div.navbar-header {
@@ -30,6 +26,12 @@ div.navbar-header {
 		font-size: 1.8em;
 		// color: white;
 	}
+}
+
+.navbar-default .navbar-nav>.active>a {
+	color: #555;
+  background-color: white;
+  border-bottom: 3px solid #555;
 }
 
 h1.page-header {
@@ -118,4 +120,12 @@ div.field_with_errors {
   	background-color: $blueDark;
     border-color: $blueDark;
   }
+}
+
+/* ************ Alerts ************ */
+
+.alert-success {
+	color: #468847;
+	background-color: #EBFDE3;
+	border-color: #d6e9c6;
 }

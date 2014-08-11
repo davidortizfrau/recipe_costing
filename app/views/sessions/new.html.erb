@@ -1,29 +1,39 @@
-<h1 class="page-header">Sign in</h1>
+<section class="col-sm-4 color color-default">
+  <h1 class="page-header">Sign in</h1>
+	<a id="add" href="#">
+    Forgot Password
+    <span class="glyphicon glyphicon-question-sign"></span>
+  </a>
+</section>
 
-<div class="row">
-	<div class="col-md-4 col-sm-6">
-		<%= form_for(:session, url: sessions_path) do |f| %>
-			<div class="form-group">
-				<%= f.label :email %>
-				<% if request.path == "/demo" %>
-				  <%= f.text_field :email, class: "form-control", value: "demo@recipecost.menu" %>
-				<% else %>
-					<%= f.text_field :email, class: "form-control" %>
-				<% end %>
-			</div>
-			
-			<div class="form-group">
-				<%= f.label :password %>
-				<% if request.path == "/demo" %>
-					<%= f.password_field :password, class: "form-control", value: "demo" %>
-				<% else %>
-					<%= f.password_field :password, class: "form-control" %>
-				<% end %>
-			</div>
+<section id="resources" class="col-sm-8">
+  <div class="row">
+		<div class="col-md-6 col-lg-5 col-sm-8">
+			<%= form_for(:session, url: sessions_path) do |f| %>
+				<div class="form-group">
+					<%= f.label :email %>
+					<% if request.path == "/demo" %>
+					  <%= f.text_field :email, class: "form-control", value: "demo@recipecost.menu" %>
+					<% else %>
+						<%= f.text_field :email, class: "form-control" %>
+					<% end %>
+				</div>
 				
-			<%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
-		<% end %>
-		<hr>
-		<p>New user? <%= link_to "Sign up now!", signup_path %></p>
+				<div class="form-group">
+					<%= f.label :password %>
+					<% if request.path == "/demo" %>
+						<%= f.password_field :password, class: "form-control", value: "demo" %>
+					<% else %>
+						<%= f.password_field :password, class: "form-control" %>
+					<% end %>
+				</div>
+					
+				<%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
+			<% end %>
+			<hr>
+			<p>New user? <%= link_to "Sign up now!", signup_path %></p>
+		</div>
 	</div>
-</div>
+</section>
+
+	

@@ -6,6 +6,10 @@ class IngredientsController < ApplicationController
       redirect_to new_ingredient_path unless current_user.ingredients.any?
       @ingredients = current_user.ingredients
       @categories = current_user.ingredient_categories
+      @total_inventory = 0
+      @ingredients.each do |i|
+        @total_inventory += i.inventory_cost if i.inventory_cost
+      end
     else
       redirect_to root_path
     end
@@ -13,6 +17,10 @@ class IngredientsController < ApplicationController
 
   def new
     @ingredient = Ingredient.new
+
+    if params[:category]
+      @ingredient.ingredient_category_id = params[:category]
+    end
   end
 
   def edit
@@ -44,6 +52,34 @@ class IngredientsController < ApplicationController
   def destroy
     @ingredient.destroy
     redirect_to ingredients_url
+  end
+
+  def edit_prices
+    if signed_in?
+      @ingredients = current_user.ingredients
+      @categories = current_user.ingredient_categories
+    else
+      redirect_to root_path
+    end
+  end
+
+  def update_prices
+    @ingredients = Ingredient.update(params[:ingredients].keys, params[:ingredients].values)
+    flash[:success] = "Prices Updated successfully"
+    render "edit_prices"
+  end
+
+  def edit_inventory
+    if signed_in?
+      @ingredients = current_user.ingredients
+      @categories = current_user.ingredient_categories
+    else
+      redirect_to root_path
+    end
+  end
+
+  def update_inventory
+
   end
 
 private

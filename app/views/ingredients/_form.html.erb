@@ -19,31 +19,40 @@
   <!-- ********** Price per Unit Input ********** -->
   <div class="row">
     <div class="form-group col-md-4">
-      <%= f.label :price, "Price per" %>
+      <%= f.label :price, "Price" %>
       <%= f.text_field :price, class: "form-control" %>
     </div>
     
     <div class="form-group col-md-8">
-      <%= f.label :unit %>
+      <%= f.label :unit, "per Unit" %>
       <select class="form-control" id="ingredient_unit" name="ingredient[unit]">
         <option></option>
         <%= Ingredient.units.each do |unit| %>
           <% if @ingredient.unit == unit %>
-            <option selected="selected"><%= unit.humanize.downcase %></option>
+            <option value="<%= unit %>" selected="selected"><%= unit.humanize.downcase %></option>
           <% else %>
-            <option><%= unit.humanize.downcase %></option>
+            <option value="<%= unit %>"><%= unit.humanize.downcase %></option>
           <% end %>
         <% end %>
       </select>
     </div>
   </div>
+
+  <div class="row">
+    <div class="form-group col-md-4">
+      <%= f.label :inventory %>
+    <%= f.text_field :inventory, class: "form-control" %>
+    </div>
+  </div>
+
+
   <!-- ********** End Price Input ********** -->
 
   <hr>
 
   <div class="form-group">
-    <%= f.label :yield, "Yield (Edible Portion)" %>
-    <%= f.text_field :yield, class: "form-control", placeholder: "optional" %>
+    <%= f.label :yield, "Yield % (Edible Portion)" %>
+    <%= f.text_field :yield, class: "form-control", placeholder: "optional (default is 100)" %>
   </div>
 
   <div class="form-group">
@@ -67,9 +76,9 @@
   <!-- <div class="form-group">
     <%= f.label :inventory %>
     <%= f.text_field :inventory, class: "form-control" %>
-  </div> -->
+  </div>
   
-  <!-- <div class="form-group">
+  <div class="form-group">
     <%= f.label :storage %>
     <select class="form-control" id="ingredient_storage" name="ingredient[storage]">
       <%= %w(walk-in freezer reach-in pantry).each do |s| %>
@@ -81,7 +90,7 @@
       <% end %>
     </select>
   </div> -->
- 
+  <hr>
   
     <%= f.submit class: "btn btn-default" %>
   

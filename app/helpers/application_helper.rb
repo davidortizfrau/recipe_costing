@@ -2,7 +2,7 @@ module ApplicationHelper
 	def unit?(unit)
 		case unit
 			when 'oz'      then 'weight'
-			when '#'       then 'weight'
+			when 'lb'       then 'weight'
 			when 'fl_oz'   then 'volume'
 			when 'cup'     then 'volume'
 			when 'pint'    then 'volume'

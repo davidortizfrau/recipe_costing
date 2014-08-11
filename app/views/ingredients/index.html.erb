@@ -1,65 +1,65 @@
-<h1 class="page-header">
-  Ingredients 
-  <%= link_to 'New Ingredient', new_ingredient_path, class: "btn btn-default pull-right" %>
-  <% if current_user.ingredients.count == 0 %>
-    <span class="glyphicon glyphicon-arrow-up"></span>
-  <% end %>
-</h1>
-
-<div class="row">
-
+<section class="col-sm-4 color category color-ingredient">
+  <h1 class="page-header">Inventory</h1>
   <% @categories.each do |category| %>
-    
-    <% if category.ingredients.any? %>
-      <div class="col-md-6">
-        <div class="panel panel-success">
-          <div class="panel-heading"><%= category.name %></div>
-          <div class="panel-body">
-            <div class="">
-              <table class="table table-striped">
-                  
-                  <thead> 
-                    <tr>
-                      <th>Name</th>
-                      <th>Price / Unit</th>
-                      <th class="hidden-xs">Yield</th>
-                      <th class="hidden-xs">Oz/Cup</th>
-                    </tr>
-                  </thead>
-                    
-                <% category.ingredients.each do |ingredient| %>
-                  
-                  <tr>
-                    <td><%= link_to ingredient.name, edit_ingredient_path(ingredient) %></td>
-
-                    <% if ingredient.price %>
-                      <td><%= number_to_currency(ingredient.price) %> / <%= ingredient.unit %></td>
-                    <% else %>
-                      <td>-</td>
-                    <% end %>
-
-                    <% if ingredient.yield %>
-                      <td class="hidden-xs"><%= number_to_percentage(ingredient.yield, options = { precision: 0}) %></td>
-                    <% else %>
-                      <td class="hidden-xs">-</td>
-                    <% end %>
-                    
-                    <% if ingredient.ounces_per_cup %>
-                      <td class="hidden-xs"><%= ingredient.ounces_per_cup %> oz</td>
-                    <% else %>
-                      <td class="hidden-xs">-</td>
-                    <% end %>
-                  </tr>
-                <% end %>
-    
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>           
+    <a id="<%= category.name %>" href="#"><%= category.name %></a>
   <% end %>
-</div>
+  <hr>
+  <a id="add" href="/ingredient_categories">
+    Add Category
+    <span class="glyphicon glyphicon-th-list"></span>
+  </a>
 
+  <h1><%= @total_inventory %><h1>
+</section>
 
+<section id="resources" class="col-sm-8">
+  <% flash.each do |key, value| %>
+    <%= content_tag(:div, value, class: "alert alert-#{key}", id: "flash") %>
+  <% end %>
+  <table class="table table-striped">
+    <thead> 
+      <tr>
+        <th>Name</th>
+        <th>Price / Unit</th>
+        <th class="hidden-xs">Yield</th>
+        <th class="hidden-xs">Oz/Cup</th>
+        <th class="hidden-xs">Inventory</th>
+        <th class="hidden-xs">Inventory Cost</th>
+      </tr>
+    </thead>
+    
+    <% @ingredients.each do |ingredient| %>
+                  
+      <tr data-category="<%= ingredient.ingredient_category.name %>" class="resource">
+        <td><%= link_to ingredient.name, edit_ingredient_path(ingredient) %></td>
 
+        <% if ingredient.price %>
+          <td><%= number_to_currency(ingredient.price) %> / <%= ingredient.unit.humanize.downcase %></td>
+        <% else %>
+          <td>-</td>
+        <% end %>
+
+        <% if ingredient.yield %>
+          <td class="hidden-xs"><%= number_to_percentage(ingredient.yield, options = { precision: 0}) %></td>
+        <% else %>
+          <td class="hidden-xs">100%</td>
+        <% end %>
+        
+        <% if ingredient.ounces_per_cup %>
+          <td class="hidden-xs"><%= ingredient.ounces_per_cup %> oz</td>
+        <% else %>
+          <td class="hidden-xs">-</td>
+        <% end %>
+
+        <td class="hidden-xs"><%= ingredient.inventory %> <%=ingredient.unit.humanize.downcase if ingredient.inventory %></td>
+
+        <td class="hidden-xs"><%= number_to_currency(ingredient.inventory_cost) if ingredient.inventory %></td>
+      </tr>
+
+    <% end %>
+
+  </table>
+
+  <%= link_to "Add Ingredient", "/ingredients/new", class: "btn btn-default" %>
+
+</section>

@@ -1,7 +1,18 @@
-<h1 class="page-header">Listing plates <%= link_to 'New Plate', new_plate_path, class: "btn btn-default pull-right" %></h1>
+<section class="col-sm-4 category color color-plate">
+  <h1 class="page-header">Menu Items</h1>
+  <% @categories.each do |category| %>
+    <a id="<%= category.name %>" href="#"><%= category.name %></a>
+  <% end %>
+  <hr>
+  <a id="add" href="/plate_categories">
+    Add Category
+    <span class="glyphicon glyphicon-th-list"></span>
+  </a>
+</section>
 
-<table class="table">
-  <thead>
+<section id="resources" class="col-sm-8">
+  <table class="table">
+    <thead>
     <tr>
       <th>Name</th>
       <th>Cost</th>
@@ -11,10 +22,9 @@
       <th></th>
     </tr>
   </thead>
-    
 
-<% @plates.each do |plate| %>
-  <tr>
+  <% @plates.each do |plate| %>
+  <tr data-category="<%= plate.plate_category.name %>" class="resource">
     <td><%= link_to plate.name, plate_path(plate) %></td>
     <td><%= number_to_currency plate.total_cost %></td>
     <td><%= number_to_currency plate.sales_price %></td>
@@ -23,5 +33,7 @@
     <td><%= link_to 'Delete', plate, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
-</table>
 
+  </table>
+  <%= link_to 'New Plate', new_plate_path, class: "btn btn-default" %>
+</section>

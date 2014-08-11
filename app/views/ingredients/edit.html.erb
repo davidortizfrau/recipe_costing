@@ -1,9 +1,17 @@
-<h1 class="page-header">Editing <%= @ingredient.name %>
- <%= link_to 'Delete', @ingredient, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %>
-</h1>
+<section class="color color-ingredient col-sm-4">
+  <h1 class="page-header"><%= @ingredient.name %></h1>
 
+  <a id="add" href="<%= ingredient_path(@ingredient) %>" data-confirm="Are you sure?" data-method="delete" rel="nofollow">
+  	<!-- <span class="glyphicon glyphicon-edit"></span> -->
+    Delete Ingredient
+    <span class="glyphicon glyphicon-trash"></span>
+  </a>
+</section>
+
+<section id="resources" class="col-sm-8">
 <div class="row">
-	<div class="col-md-4">
+	<div class="col-md-6">
 		<%= render 'form' %>
 	</div>
 </div>
+</section>

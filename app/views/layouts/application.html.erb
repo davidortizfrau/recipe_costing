@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Recipe Cost App</title>
+  <title>Recipe Cost App | Food Cost Management Tool</title>
   
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -12,17 +12,9 @@
   <link href='http://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'>
 </head>
 <body>
-	<div class="container">
-
-		<%= render "layouts/nav" %>
-    <% flash.each do |key, value| %>
-      <%= content_tag(:div, value, class: "alert alert-#{key}", style: "margin-top: 20px") %>
-    <% end %>
-		<%= yield %>
-    <%= render "layouts/footer" %>
-	</div>
-	
-
+	<%= render "layouts/nav" %>
+	<%= yield %>
+  <%#= render "layouts/footer" %>
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
 </body>
 </html>
